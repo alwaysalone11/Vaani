@@ -1,140 +1,127 @@
-<!DOCTYPE html>
-<html lang="te">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaani - All Languages Voice Friend</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#102a43">
+<title>Vaani — Your Voice, Your Freedom</title>
 <style>
-*{box-sizing:border-box} body{margin:0;background:#000;color:#fff;font-family:Arial,sans-serif;text-align:center;padding:15px}
-h1{font-size:46px;margin:8px 0 0} .sub{color:#ffe58a;font-size:17px;font-weight:bold}
-.badge{background:#ffaa00;color:#000;padding:12px;border-radius:20px;font-weight:bold;margin:12px 0}
-#vaaniBox{background:#fff8d6;color:#111;border-radius:20px;padding:20px;font-size:23px;line-height:1.6;min-height:170px;text-align:left}
-#micBtn{width:230px;height:230px;border-radius:50%;border:8px solid #fff;background:#2563eb;color:#fff;font-size:26px;font-weight:bold;margin:18px auto;cursor:pointer}
-#micBtn.listening{background:#ef4444;animation:pulse 1s infinite} @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.06)}100%{transform:scale(1)}}
-.sosBtn{width:100%;padding:20px;border:0;border-radius:20px;background:#ef4444;color:#fff;font-size:24px;font-weight:bold}
-.langs{display:flex;gap:6px;justify-content:center;flex-wrap:wrap} .langs button{padding:10px 16px;border-radius:20px;border:0;background:#333;color:#fff;font-weight:bold} .langs button.on{background:#fff;color:#000}
-#detected{color:#7CFC00;font-weight:bold;margin-top:8px;font-size:16px}
+:root{--navy:#102a43;--blue:#1768e8;--blue2:#0d4fc0;--cream:#f7f9fc;--ink:#172b3d;--muted:#62758a;--line:#e0e8f1;--green:#147a4b;--red:#d83b50}
+*{box-sizing:border-box}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+button,select,input{font:inherit}
+.app{max-width:780px;margin:auto;padding:16px 16px 30px}
+header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0 16px}
+.brand{font-weight:850;font-size:1.55rem;letter-spacing:-.5px;color:var(--navy)}
+.brand small{display:block;font-size:.74rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.statuspill{background:#e4f5ec;color:#17613c;padding:7px 11px;border-radius:999px;font-weight:750;font-size:.8rem}
+.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 8px 28px rgba(16,42,67,.05)}
+h1{font-size:clamp(1.45rem,5vw,2rem);line-height:1.2;margin:2px 0 8px}
+.intro{color:var(--muted);line-height:1.5;margin-bottom:18px}
+.language{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0 18px}
+.language label{font-weight:750}
+select{border:1px solid #ccd8e5;border-radius:12px;padding:11px 12px;background:#fff;min-width:150px}
+.voicearea{text-align:center;padding:5px 0 12px}
+.mic{width:min(190px,54vw);height:min(190px,54vw);max-width:190px;max-height:190px;border:7px solid #dbe8ff;border-radius:50%;background:linear-gradient(145deg,#2878f2,#1152c5);color:white;font-size:3.2rem;box-shadow:0 8px 25px #1768e830;cursor:pointer;touch-action:manipulation}
+.mic.listening{background:linear-gradient(145deg,#e34c62,#bd2038);border-color:#ffe0e5;animation:pulse 1.15s infinite}
+@keyframes pulse{50%{transform:scale(1.035);box-shadow:0 0 0 12px #ffe5e9}}
+.mic:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #ffb400;outline-offset:3px}
+.miccaption{font-weight:850;font-size:1.15rem;margin-top:14px}
+.status{min-height:27px;color:var(--muted);text-align:center;margin:4px 0 12px;font-weight:600}
+.sectionlabel{font-weight:800;margin:14px 0 7px}
+.speechbox,.answer{padding:14px;border-radius:15px;min-height:58px;line-height:1.55;overflow-wrap:anywhere}
+.speechbox{background:#f4f7fb;border:1px solid #e5edf5;color:#334b62}
+.answer{background:#edf5ff;border-left:5px solid var(--blue);color:#163d69}
+.answer strong{display:block;margin-bottom:4px}
+.actiongrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
+.action{border:1px solid var(--line);background:white;border-radius:16px;padding:14px 12px;text-align:left;font-weight:800;color:var(--navy);cursor:pointer;min-height:80px}
+.action:active{transform:scale(.985);background:#f2f7ff}
+.action .emoji{font-size:1.55rem;display:block;margin-bottom:4px}
+.smallbtn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;font-weight:700;color:var(--navy)}
+.bottomrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
+.note{background:#fff8e7;border:1px solid #f5e5b8;color:#76520b;padding:12px;border-radius:13px;font-size:.83rem;line-height:1.5;margin-top:16px}
+.footer{text-align:center;color:var(--muted);font-size:.78rem;padding:18px 4px 0}
+@media(min-width:650px){.actiongrid{grid-template-columns:repeat(4,minmax(0,1fr))}.panel{padding:26px}}
 </style>
 </head>
 <body>
-<h1>Vaani 🙏</h1>
-<div class="sub">Pedda Vallakosam - Anni Bhashalu</div>
-<div class="badge">🌍 Telugu • Hindi • English • Tamil • Kannada • Malayalam • Marathi • Bengali</div>
-<div class="langs">
-<button class="on" onclick="setLang('te',this)">Telugu</button>
-<button onclick="setLang('hi',this)">Hindi</button>
-<button onclick="setLang('en',this)">English</button>
-<button onclick="setLang('ta',this)">Tamil</button>
-<button onclick="setLang('kn',this)">Kannada</button>
-<button onclick="setLang('ml',this)">Malayalam</button>
-<button onclick="setLang('mr',this)">Marathi</button>
-<button onclick="setLang('bn',this)">Bengali</button>
-<button onclick="setLang('auto',this)" style="background:#ffaa00;color:#000">🌍 AUTO - Yedi ayina</button>
+<div class="app">
+<header><div class="brand">🧡 VAANI <small>Voice friend for everyone</small></div><div class="statuspill">Voice-first prototype</div></header>
+<section class="panel">
+<h1>మీకు ఏం సహాయం కావాలి?</h1>
+<div class="intro">Speak naturally in your language. No typing, perfect pronunciation, or special commands needed.</div>
+<div class="language"><label for="language">Voice language</label>
+<select id="language" aria-label="Choose speech language">
+<option value="te-IN">తెలుగు</option><option value="en-IN">English (India)</option><option value="hi-IN">हिन्दी</option><option value="ta-IN">தமிழ்</option><option value="kn-IN">ಕನ್ನಡ</option><option value="ml-IN">മലയാളം</option><option value="mr-IN">मराठी</option><option value="bn-IN">বাংলা</option>
+</select></div>
+<div class="voicearea"><button id="mic" class="mic" aria-label="Tap to speak">🎙️</button><div class="miccaption">మాట్లాడండి · Tap to speak</div></div>
+<div id="status" class="status" role="status" aria-live="polite">Mic button నొక్కి మాట్లాడండి.</div>
+<div class="sectionlabel">మీరు చెప్పింది / You said</div><div id="heard" class="speechbox">మీ మాటలు ఇక్కడ కనిపిస్తాయి.</div>
+<div class="sectionlabel">Vaani says / వాణి సమాధానం</div><div id="reply" class="answer" aria-live="polite">నమస్కారం! నేను వాణి. మీకు ఏ సహాయం కావాలి? Mic నొక్కి చెప్పండి.</div>
+<div class="actiongrid">
+<button class="action" data-intent="health"><span class="emoji">🏥</span>Doctor / Hospital</button>
+<button class="action" data-intent="money"><span class="emoji">💸</span>Money transfer</button>
+<button class="action" data-intent="grocery"><span class="emoji">🛒</span>Grocery help</button>
+<button class="action" data-intent="bus"><span class="emoji">🚌</span>Bus / travel</button>
+<button class="action" data-intent="call"><span class="emoji">📞</span>Call someone</button>
+<button class="action" data-intent="reminder"><span class="emoji">⏰</span>Reminder</button>
+<button class="action" data-intent="directions"><span class="emoji">📍</span>Directions</button>
+<button class="action" data-intent="sos"><span class="emoji">🆘</span>Emergency help</button>
 </div>
-<div id="detected">Current Language: Telugu - Ye bhasha lo ayina matladandi</div>
-<div id="vaaniBox">Namaste Amma!
-
-Nenu Vaani ni. Ye bhasha lo ayina matladandi.
-
-Telugu lo - Ammaki vanda pampu
-Hindi lo - Maa ko sau rupaye bhejo
-English lo - Send 100 to mother
-Tamil lo - Amma ku nooru anupu
-
-Ye bhasha lo cheppina naku ardham avuthundi.</div>
-<div style="color:#ffe58a;font-weight:bold;margin-top:8px">Button nokki Matladandi 👇</div>
-<button id="micBtn" onclick="startListen()">🎤<br>MATLADANDI</button>
-<button class="sosBtn" onclick="sos()">🆘 SOS - HELP</button>
-
+<div class="bottomrow"><button id="repeat" class="smallbtn">🔊 Repeat answer</button><button id="stop" class="smallbtn">🔇 Stop voice</button></div>
+<div class="note"><b>Prototype transparency:</b> Voice input and spoken replies depend on browser/device support. This prototype demonstrates intent recognition and conversation; it does not actually transfer money, place calls, book medical appointments, order groceries, create reminders, or contact emergency services. Always verify and confirm before real-world actions. For an emergency, contact local emergency services directly.</div>
+</section>
+<div class="footer">Listen → Understand → Assist · Built for language and accessibility inclusion</div>
+</div>
 <script>
-let lang='auto', step='idle', lastPerson='', lastAmount='', lastPlace='';
-let langMap={te:'te-IN',hi:'hi-IN',en:'en-IN',ta:'ta-IN',kn:'kn-IN',ml:'ml-IN',mr:'mr-IN',bn:'bn-IN'};
-let langNames={te:'Telugu',hi:'Hindi',en:'English',ta:'Tamil',kn:'Kannada',ml:'Malayalam',mr:'Marathi',bn:'Bengali',auto:'Auto'};
-
-function setLang(l,btn){lang=l; document.querySelectorAll('.langs button').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); document.getElementById('detected').innerText='Current Language: '+(l=='auto'?'AUTO - Ye bhasha ayina':langNames[l]); speakClear(l=='auto'?'Auto mode lo unnanu. Ye bhasha lo ayina matladandi, nenu ade bhasha lo chepthanu':`Ippudu ${langNames[l]} lo matladuthanu. Cheppandi`);}
-
-// AUTO DETECT - Ye bhasha lo matladaro kanukkuntundi
-function detectLangFromText(t){
-  if(/[\u0C00-\u0C7F]/.test(t)) return 'te'; // Telugu script
-  if(/[\u0900-\u097F]/.test(t)) return 'hi'; // Hindi / Devanagari
-  if(/[\u0B80-\u0BFF]/.test(t)) return 'ta'; // Tamil
-  if(/[\u0C80-\u0CFF]/.test(t)) return 'kn'; // Kannada
-  if(/[\u0D00-\u0D7F]/.test(t)) return 'ml'; // Malayalam
-  if(/[\u0980-\u09FF]/.test(t)) return 'bn'; // Bengali
-  t=t.toLowerCase();
-  if(t.includes('bhejo')||t.includes('maa')||t.includes('sau')||t.includes('kya')||t.includes('kaise')) return 'hi';
-  if(t.includes('anupu')||t.includes('amma ku')||t.includes('nooru')) return 'ta';
-  if(t.includes('send')||t.includes('mother')||t.includes('rupees')) return 'en';
-  if(t.includes('pampu')||t.includes('ammaki')||t.includes('vanda')) return 'te';
-  return lang=='auto'?'te':lang;
+(() => {
+const mic=document.getElementById('mic'), lang=document.getElementById('language'), status=document.getElementById('status');
+const heard=document.getElementById('heard'), replyBox=document.getElementById('reply');
+const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+let lastReply='', recognition=null;
+const translations={
+te:{welcome:'నమస్కారం! నేను వాణి. మీకు ఏ సహాయం కావాలి?',health:'మీకు డాక్టర్ లేదా హాస్పిటల్ సహాయం కావాలని అర్థమైంది. దగ్గరలో ఆసుపత్రి వెతకాలా, లేదా అపాయింట్మెంట్ గురించి సహాయం కావాలా?',money:'డబ్బు పంపాలని అర్థమైంది. ఎవరికి పంపాలి, ఎంత పంపాలి? నిజమైన డబ్బు పంపే ముందు వివరాలు తప్పనిసరిగా నిర్ధారించాలి. ఈ prototype డబ్బు పంపదు.',grocery:'కిరాణా సరుకులు కావాలని అర్థమైంది. ఏ వస్తువులు కావాలి, ఎంత పరిమాణంలో కావాలి చెప్పండి. ఈ prototype order చేయదు.',bus:'బస్సు ప్రయాణ సమాచారం కావాలని అర్థమైంది. ఎక్కడి నుంచి ఎక్కడికి వెళ్లాలి, ఏ సమయానికి కావాలి?',call:'ఎవరికి ఫోన్ చేయాలనుకుంటున్నారు? Call చేసే ముందు contact మరియు number నిర్ధారించాలి. ఈ prototype నిజమైన call చేయదు.',reminder:'ఏ విషయాన్ని గుర్తు చేయాలి? ఏ రోజు, ఏ సమయానికి reminder కావాలో చెప్పండి. ఈ prototype reminder save చేయదు.',directions:'దారి లేదా location సహాయం కావాలని అర్థమైంది. ఎక్కడికి వెళ్లాలనుకుంటున్నారు? Live maps ఇంకా connect చేయలేదు.',sos:'మీకు అత్యవసర సహాయం కావాలా? ఇది demo మాత్రమే, emergency servicesకి call చేయదు. అత్యవసర పరిస్థితిలో స్థానిక emergency numberకు వెంటనే call చేయండి.',clarify:'మీరు చెప్పింది కొంత అర్థమైంది. ఇంకొంచెం సులభంగా లేదా వివరంగా చెప్పగలరా?'},
+en:{welcome:'Hello! I am Vaani. How can I help you?',health:'It sounds like you need a doctor or hospital. Would you like help finding a hospital or with an appointment?',money:'You want to send money. Who is the recipient and what amount? Verify everything before any real transfer. This prototype does not transfer money.',grocery:'You need groceries. Tell me which items and quantities. This prototype cannot place an order.',bus:'You need bus or travel information. Where are you travelling from and to, and when?',call:'Who would you like to call? Confirm the contact and number before calling. This prototype does not place calls.',reminder:'What should I remind you about, and on what date and time? This prototype does not save reminders.',directions:'You need directions. Where would you like to go? Live maps are not connected yet.',sos:'Do you need urgent help? This is a demo and does not contact emergency services. In an emergency, call your local emergency number now.',clarify:'I heard you, but I am not sure what you need. Could you say a little more?'},
+hi:{welcome:'नमस्ते! मैं वाणी हूँ। मैं आपकी कैसे मदद करूँ?',health:'आपको डॉक्टर या अस्पताल की मदद चाहिए। क्या अस्पताल ढूँढना है या अपॉइंटमेंट में मदद चाहिए?',money:'आप पैसे भेजना चाहते हैं। किसको और कितनी राशि? भेजने से पहले सभी विवरण पुष्टि करें। यह डेमो पैसे नहीं भेजता।',grocery:'आपको किराना चाहिए। सामान और मात्रा बताइए। यह डेमो ऑर्डर नहीं करता।',bus:'आपको बस की जानकारी चाहिए। कहाँ से कहाँ और कब जाना है?',call:'किसे फोन करना है? कॉल से पहले नंबर की पुष्टि करें। यह डेमो कॉल नहीं करता।',reminder:'किस बात की याद दिलानी है और कब? यह डेमो रिमाइंडर सेव नहीं करता।',directions:'आपको रास्ता चाहिए। कहाँ जाना है? नक्शा अभी जुड़ा नहीं है।',sos:'क्या आपको तुरंत मदद चाहिए? यह डेमो आपातकालीन सेवाओं को संपर्क नहीं करता। आपात स्थिति में स्थानीय आपातकालीन नंबर पर कॉल करें।',clarify:'मैंने सुना, लेकिन पूरी तरह समझ नहीं पाया। कृपया थोड़ा और बताएं।'}
+};
+function langGroup(){const v=lang.value;return v.startsWith('te')?'te':v.startsWith('hi')?'hi':'en'}
+function say(text){lastReply=text;replyBox.textContent=text;if(!('speechSynthesis'in window)){status.textContent='Speech output unsupported in this browser';return}speechSynthesis.cancel();const utter=new SpeechSynthesisUtterance(text);utter.lang=lang.value;utter.rate=.88;utter.pitch=1;speechSynthesis.speak(utter)}
+function words(text){return text.toLowerCase().normalize('NFKC').replace(/[^\p{L}\p{N}\s]/gu,' ').split(/\s+/).filter(Boolean)}
+function detect(text){
+ const s=text.toLowerCase(), w=words(text);
+ const groups={
+ health:['doctor','hospital','clinic','appointment','token','medicine','medicines','sick','pain','fever','డాక్టర్','దవాఖాన','ఆస్పత్రి','హాస్పటల్','జ్వరం','మందు','బాగోలేదు','నొప్పి','వైద్య','డాక్టరు','దవాఖానా','తలనొప్పి'],
+ money:['money','send','transfer','upi','payment','పంపు','డబ్బు','రూపాయి','వంద','వేలు','చెల్లించు','pay','అమ్మకి'],
+ grocery:['grocery','groceries','kirana','shopping','rice','milk','vegetables','కిరాణా','బియ్యం','పాలు','కూరగాయ','సరుకులు','కొనాలి'],
+ bus:['bus','travel','ticket','train','బస్సు','బస్','టికెట్','ప్రయాణం','రైలు'],
+ call:['call','phone','dial','ఫోన్','కాల్','మాట్లాడు','చేయి'],
+ reminder:['remind','reminder','alarm','tomorrow','later','గుర్తు','రేపు','అలారం','మర్చిపో','సమయానికి'],
+ directions:['direction','route','where','location','navigate','దారి','ఎక్కడ','వెళ్ళాలి','వెళ్తా','చూపించు','location'],
+ sos:['emergency','help me','urgent','sos','అత్యవసరం','సహాయం','కాపాడు','ప్రమాదం']
+ };
+ let best='clarify', score=0;
+ for(const [intent,keys] of Object.entries(groups)){let n=0;for(const key of keys){if(s.includes(key))n+=key.length>5?2:1}if(n>score){score=n;best=intent}}
+ return best;
 }
-function speakClear(t, forceLang){
-  let useLang = forceLang || lang;
-  document.getElementById('vaaniBox').innerText=t;
-  try{
-    speechSynthesis.cancel();
-    let u=new SpeechSynthesisUtterance(t);
-    u.lang=langMap[useLang]||'te-IN'; u.rate=0.85; u.pitch=1.1; u.volume=1;
-    let voices=speechSynthesis.getVoices();
-    let v=voices.find(v=>v.lang.startsWith(useLang))||voices.find(v=>v.lang.includes(useLang));
-    if(v) u.voice=v;
-    speechSynthesis.speak(u);
-  }catch(e){}
+function handleText(text){heard.textContent=text;const g=langGroup();let intent=detect(text);let out=(translations[g]||translations.en)[intent]||translations.en.clarify;say(out);status.textContent='Request understood: '+intent+' (prototype)';}
+function start(){
+ if(!SR){status.textContent='Speech recognition is unavailable in this browser. Try Chrome and allow microphone permission.';return}
+ recognition=new SR();recognition.lang=lang.value;recognition.interimResults=true;recognition.continuous=false;
+ mic.classList.add('listening');status.textContent='Listening… speak naturally.';
+ recognition.onresult=e=>{let text='';for(let i=0;i<e.results.length;i++)text+=e.results[i][0].transcript;if(text)heard.textContent=text;if(e.results[e.results.length-1].isFinal)handleText(text)};
+ recognition.onerror=e=>{status.textContent='Voice error: '+e.error+'. Please try again.';mic.classList.remove('listening')};
+ recognition.onend=()=>{mic.classList.remove('listening');if(status.textContent.startsWith('Listening'))status.textContent='Finished listening. Tap mic to speak again.'};
+ try{recognition.start()}catch(err){mic.classList.remove('listening');status.textContent='Could not start mic. Try again.'}
 }
-function handle(text){
-  if(!text) return;
-  let detected = detectLangFromText(text);
-  // Auto mode lo - vachina bhasha lone answer
-  if(lang=='auto') { lang=detected; document.getElementById('detected').innerText='Detected: '+langNames[detected]+' - Ade bhasha lo chepthunnanu'; }
-  let t=text.toLowerCase();
-  // Person + Amount - All Languages
-  if(t.includes('amma')||t.includes('maa')||t.includes('mother')||t.includes('amma ku')||t.includes('aai')) lastPerson='Amma';
-  if(t.includes('nanna')||t.includes('papa')||t.includes('father')||t.includes('baba')) lastPerson='Nanna';
-  if(t.includes('koduku')||t.includes('beta')||t.includes('son')) lastPerson='Koduku';
-  if(t.includes('vanda')||t.includes('sau')||t.includes('100')||t.includes('nooru')||t.includes('hundred')) lastAmount='100';
-  if(t.includes('vel')||t.includes('hajar')||t.includes('1000')||t.includes('thousand')) lastAmount='1000';
-
-  if(step=='confirm'){
-    if(t.includes('avunu')||t.includes('yes')||t.includes('haan')||t.includes('ha')||t.includes('ok')||t.includes('sare')||t.includes('aama')||t.includes('hou')){
-      step='idle';
-      let msg = lang=='hi'?`Ho gaya! ${lastPerson} ko ${lastAmount} bhejne ke liye ready hai.` : lang=='en'?`Done! Ready to send ${lastAmount} to ${lastPerson}.` : lang=='ta'?`Mudinjidu! ${lastPerson} ku ${lastAmount} anupa ready.` : `Ayipoyindi! ${lastPerson} ki ${lastAmount} pampadaniki ready chesanu. Nenu pillalaki call chestunnanu.`;
-      return speakClear(msg, lang);
-    }
-    if(t.includes('ledu')||t.includes('no')||t.includes('nahi')||t.includes('illa')){ step='idle'; return speakClear(lang=='hi'?'Theek hai, nahi bhejte.':lang=='en'?'Okay, I will not send.':`Sare, vaddu. Inkem kavalo cheppandi.`, lang); }
-  }
-
-  if(t.includes('dabbu')||t.includes('paisa')||t.includes('money')||t.includes('pampu')||t.includes('bhejo')||t.includes('anupu')||t.includes('send')||t.includes('rupay')||t.includes('rupai')||t.includes('sau')){
-    step='confirm';
-    let q = lang=='hi'?`${lastPerson||'Kisko'} ko ${lastAmount||'kitna'} bheju? Haan kaho, main bhej dungi.` : lang=='en'?`Send ${lastAmount||'how much'} to ${lastPerson||'whom'}? Say Yes, I will send.` : lang=='ta'?`${lastPerson||'Yaruku'} ${lastAmount||'evvalavu'} anupava? Aama nu sollunga.` : `${lastPerson||'Evariki'} ${lastAmount||'entha'} pampala? Avunu ani cheppandi, nenu pampisthanu.`;
-    return speakClear(q, lang);
-  }
-  if(t.includes('hospital')||t.includes('doctor')||t.includes('jaram')||t.includes('bukhar')||t.includes('fever')||t.includes('bagole')){
-    step='confirm';
-    let q = lang=='hi'?`Tabiyat kharab hai? Doctor ko phone karke token lu? Haan kaho.` : lang=='en'?`Not feeling well? Shall I call doctor and take token? Say Yes.` : `Bagoledu? Doctor ki phone chesi token teesukona? Avunu ani cheppandi.`;
-    return speakClear(q, lang);
-  }
-  if(t.includes('kirana')||t.includes('saman')||t.includes('grocery')){ step='confirm'; return speakClear(lang=='hi'?'Kirana saman chahiye? Haan kaho.':`Kirana saman kavala? Avunu ani cheppandi.`, lang); }
-  if(t.includes('bus')||t.includes('vellali')){ step='confirm'; return speakClear(`Bus kavala? Ekkadiki vellali cheppandi. Avunu ani cheppandi.`, lang); }
-  if(t.includes('pension')) return speakClear(`Pension prathi nela 1-5 lopu vastundi.`, lang);
-  if(t.includes('badha')||t.includes('bhayam')||t.includes('darr')||t.includes('lonely')) return speakClear(lang=='hi'?'Main hu. Darna mat.':'Nenu unnanu. Bayapadakandi. Mee pillalaki call cheyyala?', lang);
-  if(t.includes('namaste')||t.includes('hello')||t.includes('namaskar')) return speakClear(lang=='hi'?'Namaste! Bolo, kya chahiye?':lang=='en'?'Hello! What do you need?':`Namaste! Em kavalo cheppandi.`, lang);
-  return speakClear(lang=='hi'?`Samajh gayi. "${text}" - Thoda aur batao, kya chahiye?` : lang=='en'?`Understood. "${text}" - Tell me a little more.` : `"${text}" ani chepparu kada. Konchem malli nidanam ga cheppandi. Hospital, Dabbu, Kirana - yedi kavalo?`, lang);
-}
-function sos(){ speakClear(lang=='hi'?'SOS! Ambulance ko call kar rahi hu. Darna mat.':lang=='en'?'SOS! Calling ambulance. Don\'t worry.':`SOS! Ambulance ki call chestunnanu. Bayapadakandi.`, lang); }
-function startListen(){
-  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){ speakClear('Mic work avvatledu. Malli try cheyyandi.'); return; }
-  let r=new SR();
-  // AUTO mode lo - anni bhashalu vintundi
-  r.lang = lang=='auto'?'te-IN':langMap[lang];
-  // Chrome lo Auto kosam - Telugu default, kani ye bhasha ayina vintundi
-  let btn=document.getElementById('micBtn'); btn.classList.add('listening'); btn.innerHTML='🎤<br>VINTUNNANU...';
-  document.getElementById('vaaniBox').innerText='Vintunnanu... Ye bhasha lo ayina cheppandi...';
-  r.onresult=e=>{ btn.classList.remove('listening'); btn.innerHTML='🎤<br>MATLADANDI'; handle(e.results[0][0].transcript); };
-  r.onerror=()=>{ btn.classList.remove('listening'); btn.innerHTML='🎤<br>MATLADANDI'; speakClear('Vinaledu. Malli nidanam ga cheppandi.'); };
-  r.onend=()=>{ btn.classList.remove('listening'); btn.innerHTML='🎤<br>MATLADANDI'; };
-  r.start();
-}
+mic.addEventListener('click',start);
+document.querySelectorAll('[data-intent]').forEach(b=>b.addEventListener('click',()=>{
+ const intent=b.dataset.intent,g=langGroup();let out=(translations[g]||translations.en)[intent]||translations.en.clarify;
+ heard.textContent='Quick action: '+b.textContent.trim();say(out);status.textContent='Quick action selected: '+intent+' (demo only)';
+}));
+document.getElementById('repeat').addEventListener('click',()=>lastReply?say(lastReply):say(translations[langGroup()].welcome));
+document.getElementById('stop').addEventListener('click',()=>{if('speechSynthesis'in window)speechSynthesis.cancel();status.textContent='Voice stopped.'});
+lang.addEventListener('change',()=>{status.textContent='Voice language selected: '+lang.options[lang.selectedIndex].text+' (speech recognition uses this language setting)'});
+})();
 </script>
 </body>
 </html>
