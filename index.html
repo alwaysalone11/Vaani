@@ -3,128 +3,120 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vaani - Cheppandi, Ayipoyindi</title>
+<title>Vaani - Vizag - Universal Voice Assistant</title>
 <style>
-body{background:#0f172a;color:white;font-family:Arial;text-align:center;padding:20px}
-h1{font-size:42px;margin:5px}
-p{color:#94a3b8}
-.langs button{padding:10px 18px;border-radius:20px;border:none;font-weight:bold;margin:4px;cursor:pointer}
-.langs .active{background:white;color:black}
-.langs .inactive{background:#1e293b;color:white}
-.card{background:#1e293b;border-radius:20px;padding:20px;margin-top:15px}
-.bubble{background:#fef3c7;color:#111;padding:14px;border-radius:12px;margin:10px 0;font-size:18px}
-.bubble.green{background:#d1fae5}
-button.speak{background:#2563eb;color:white;width:100%;padding:16px;border:none;border-radius:30px;font-size:18px;font-weight:bold;margin-top:10px}
-button.speak.listening{background:#dc2626}
-button.reset{background:#cbd5e1;width:100%;padding:14px;border:none;border-radius:30px;font-weight:bold;margin-top:10px}
-.small{font-size:13px;color:#94a3b8;text-align:left;margin-top:15px}
+*{box-sizing:border-box} body{background:#000;color:#fff;font-family:Arial;padding:12px;margin:0;text-align:center}
+h1{font-size:46px;margin:0} .sub{color:#fde68a;font-size:15px;font-weight:bold}
+.badge{background:#f59e0b;color:#000;padding:7px 16px;border-radius:20px;font-weight:bold;display:inline-block;margin:6px 0}
+.langs button{padding:11px 15px;border-radius:25px;border:none;font-weight:bold;margin:3px;cursor:pointer}
+.active{background:#fff;color:#000} .inactive{background:#333;color:#fff}
+.top{background:#1e293b;border-radius:20px;padding:16px;margin-top:10px;border:2px solid #f59e0b}
+#heard{color:#fde68a;min-height:24px;margin:8px 0;font-size:17px}
+.bubble{background:#fef3c7;color:#111;padding:16px;border-radius:14px;font-size:20px;line-height:1.5;font-weight:bold}
+.bubble.green{background:#d1fae5} .bubble.red{background:#fecaca}
+.speak{background:#2563eb;color:#fff;width:100%;padding:20px;border:none;border-radius:35px;font-size:22px;font-weight:bold;margin-top:12px;cursor:pointer}
+.speak.listening{background:#dc2626}
+.sos{background:#ef4444;color:#fff;width:100%;padding:20px;border:none;border-radius:35px;font-size:22px;font-weight:bold;margin-top:12px;cursor:pointer}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+.card{background:#1e293b;border-radius:16px;padding:14px;text-align:left;border:1px solid #334155}
+.card b{font-size:16px} .card p{font-size:13px;color:#94a3b8;margin:4px 0}
+.card button{width:100%;padding:12px;border:none;border-radius:22px;font-weight:bold;cursor:pointer;margin-top:5px;font-size:15px}
+.blue{background:#2563eb;color:#fff} .green{background:#22c55e;color:#fff} .orange{background:#f59e0b;color:#000} .pink{background:#ec4899;color:#fff} .grey{background:#e2e8f0;color:#000}
+input{width:100%;padding:12px;border-radius:12px;border:none;margin-top:6px;font-size:16px}
+.small{font-size:13px;color:#cbd5e1;text-align:left;margin-top:12px;line-height:1.7;background:#1e293b;padding:12px;border-radius:12px}
+.hosp{font-size:13px;text-align:left;background:#0f172a;padding:10px;border-radius:10px;margin-top:8px;line-height:1.6}
 </style>
 </head>
 <body>
-<h1>Vaani</h1>
-<p>Cheppandi, Ayipoyindi. / Just say it, it's done.</p>
+<h1>Vaani 🙏</h1>
+<div class="sub">Evaru, Ekkada, Eppudu, Ela Adigina - Ardham Avuthundi</div>
+<div class="badge">📍 Vizag - Visakhapatnam - All Languages - All Ages - All People</div>
 <div class="langs">
 <button id="btn-te" class="active" onclick="setLang('te')">Telugu</button>
 <button id="btn-en" class="inactive" onclick="setLang('en')">English</button>
 <button id="btn-hi" class="inactive" onclick="setLang('hi')">Hindi</button>
+<button id="btn-all" class="inactive" onclick="setLang('all')">🌍 All Languages</button>
 </div>
-<div class="card">
-<div id="stepLabel">STEP 1: Mic meeda click cheyyandi</div>
-<div id="heard" style="font-size:20px;margin:10px 0">...</div>
-<div class="bubble" id="vaaniMsg">Nenu meeku vintunnanu. 'Amma ki 100 pampu' ani cheppandi.</div>
-<button class="speak" id="speakBtn" onclick="startListen()">🎤 Matladandi - Tap to Speak</button>
-<button class="reset" onclick="resetApp()">Malli Modalu Pettandi</button>
-<div class="small">Try cheyyandi:<br>- Amma ki 100 pampu / Amma ki vanda pampu<br>- Naa balance entha?<br>- Amma ki 500 pampu</div>
+<div class="top">
+<div id="stepLabel">Nenu vintunnanu... Vizag lo em kavali cheppandi</div>
+<div id="heard">...</div>
+<div class="bubble" id="vaaniMsg">Namaste! Nenu Vaani ni, Vizag nunchi. Meeku em kavalo alaane cheppandi. Hospital ki vellala? Doctor ki call cheyyala? Perfect ga cheppalsina avasaram ledu.</div>
+<button class="speak" id="speakBtn" onclick="startListen()">🎤 MATLADANDI - TAP TO SPEAK</button>
+<button class="sos" onclick="sos()">🆘 SOS - HELP - Vizag Ambulance ki Call</button>
+<div class="hosp"><b>🏥 Vizag Hospitals:</b><br>• KGH Vizag - Govt Hospital - Maharanipeta<br>• Apollo Hospitals Vizag - Seethammadhara<br>• Medicover Vizag - MVP Colony<br>• Care Hospitals Vizag - Ram Nagar<br><span style="color:#fde68a">Emaina oka hospital cheppandi, nenu call chesthanu.</span></div>
 </div>
-<p style="font-size:12px">Vaani - Everyday access for all - No secret keys - Works in browser</p>
+<div class="grid">
+<div class="card"><b>💰 Dabbu / UPI</b><p>Balance ₹<span id="bal">5250</span> | <span id="hist">No payment</span></p><button class="blue" onclick="quickAsk('Amma ki 100 pampu')">Dabbu Pampu</button><button class="grey" onclick="quickAsk('balance entha')">Balance</button></div>
+<div class="card"><b>🏥 Vizag Hospital</b><p>Doctor, Token, Mandulu</p><button class="green" onclick="quickAsk('Nenu Vizag lo hospital ki vellali doctor appointment book chey')">Doctor Book - Vizag</button><button class="grey" onclick="quickAsk('doctor ki call chey')">Doctor ki Call</button></div>
+<div class="card"><b>🛒 Kirana - Vizag</b><p>List: <span id="kiranaList">Empty</span> | Total ₹<span id="kiranaTotal">0</span></p><button class="orange" onclick="quickAsk('palu kavali')">Kirana Add</button><button class="grey" onclick="quickAsk('kirana order cheyyi')">Order</button></div>
+<div class="card"><b>📞 Call / Message / Video</b><p>Family tho matladandi</p><button class="pink" onclick="callPerson('Amma')">📞 Amma Call</button><button class="grey" onclick="quickAsk('amma ki message pampu')">Voice Message</button><button class="grey" onclick="videoCall()">📹 Video Call</button></div>
+<div class="card"><b>🚌 Vizag Bus / Auto / Pension</b><p>RTC Complex, Maddilapalem, Gajuwaka</p><button class="grey" onclick="quickAsk('Vizag bus eppudu')">Bus</button><button class="grey" onclick="quickAsk('pension vachinda')">Pension</button></div>
+<div class="card"><b>💬 Message</b><input id="msgInput" placeholder="Message..."><button class="green" onclick="sendWhatsApp()"> 【entity-WhatsApp¦canonical_name=WhatsApp】 Pampu</button></div>
+</div>
+<div class="small"><b>ELA CHEPPINA WORK AVUTHUNDI - VIZAG EXAMPLES:</b><br>
+<b>Hospital:</b> Nenu Vizag lo hospital ki vellali / doctor appointment book chey / doctor ki call chey / vaidhyudu ki chupinchali / daktar ki phone chey / aaspatri ki vellali / baguledhu / baledu / jwaram / mandulu techuko / token kavali<br>
+<b>Dabbu:</b> Amma ki 100 pampu / Amma ki vanda ivvu<br>
+<b>Kirana:</b> Palu kavali / Palu ledu / Biyyam techuko<br>
+<b>Help:</b> Padipoyanu / Bayam / Help<br>
+<b>Language:</b> Telugu / English / Hindi / Odia / Tamil / Kannada / Tribal slang - edi ayina, meaning okkate ayithe chalu.
+</div>
 <script>
-let lang='te';
-let state=1;
-let pendingAmount=0;
-function setLang(l){
-  lang=l;
-  ['te','en','hi'].forEach(x=>{
-    document.getElementById('btn-'+x).className=(x===l?'active':'inactive');
-  });
-  resetApp();
+let lang='te', state='idle', pendingAmount=0, pendingPerson='Amma', balance=5250, kirana=[], kiranaPrices={palu:30,milk:30,rice:60,biyyam:60,pappu:120,dal:120,oil:150,noone:150,neellu:20,water:20,kooragayalu:80,vegetables:80,bread:40,eggs:70,chekkara:45,tea:50,coffee:60};
+function fuzzy(t, words){ t=' '+t+' '; for(let w of words){ if(t.includes(w)) return true; let b=w.slice(0,4); if(b.length>=4 && t.includes(b)) return true; } return false; }
+function setLang(l){ lang=l==='all'?'te':l; ['te','en','hi','all'].forEach(x=>{let b=document.getElementById('btn-'+x); if(b) b.className=(x===l?'active':'inactive');}); resetApp(); }
+function resetApp(){ state='idle'; show("Namaste! Nenu Vaani ni, Vizag nunchi. Meeku em kavalo alaane cheppandi. Hospital ki vellala? Doctor ki call cheyyala? Perfect ga cheppalsina avasaram ledu."); }
+function show(t,cls){ let e=document.getElementById('vaaniMsg'); e.innerText=t; e.className='bubble '+(cls||''); speakText(t); }
+function speakText(t){ try{ let u=new SpeechSynthesisUtterance(t); u.lang=lang==='te'?'te-IN':lang==='hi'?'hi-IN':'en-IN'; u.rate=0.88; speechSynthesis.cancel(); speechSynthesis.speak(u);}catch(e){} }
+function norm(s){ return ' '+s.toLowerCase().replace(/[.,!?]/g,' ').replace(/\s+/g,' ').trim()+' '; }
+function has(t,a){ return fuzzy(t,a); }
+function parseAmount(t){ let m=t.match(/(\d+)/); if(m) return parseInt(m[1]); if(has(t,['veyyi','thousand','hazaar'])) return 1000; if(has(t,['aidu vanda','five hundred'])) return 500; if(has(t,['rendu vanda','two hundred'])) return 200; if(has(t,['vanda','hundred','sau'])) return 100; return 0; }
+function findPerson(t){ if(has(t,['amma','maa ','mom','mother','ammi'])) return 'Amma'; if(has(t,['nanna','papa','dad','father','baba'])) return 'Nanna'; if(has(t,['akka','didi','sister'])) return 'Akka'; if(has(t,['anna','bhai','brother'])) return 'Anna'; if(has(t,['doctor','daktar','vaidhy','vaidy'])) return 'Doctor'; return ''; }
+function isYes(t){ return has(t,['avunu','yes','yeah','yep','ok','sure','haan','han ','pampinchu','pampu','bhejo','send','cheyyi','chey','karo','sare','chestha']); }
+function isNo(t){ return has(t,['vaddu','nahi','cancel','stop','aapu']); }
+function updateKirana(){ document.getElementById('kiranaList').innerText=kirana.length?kirana.join(', '):'Empty'; let tot=kirana.reduce((s,i)=>s+(kiranaPrices[i]||50),0); document.getElementById('kiranaTotal').innerText=tot; return tot; }
+function addKirana(it){ kirana.push(it); let tot=updateKirana(); show(`${it} add chesanu. Total ${tot} rupayalu. Inka emaina kavala?`); }
+function callPerson(p){ show(`${p} ki call chestunnanu... Phone lo matladandi.`,'green'); setTimeout(()=>{window.location.href='tel:+919999999999';},1200); }
+function videoCall(){ show("Video call start chestunnanu...",'green'); }
+function sos(){ show("SOS! Bayapadakandi! Vizag lo Ambulance ki, Family ki, KGH Hospital ki call chestunnanu. Mee location Vizag ani pampistunnanu. Dhairyam ga undandi.",'red'); }
+function sendWhatsApp(){ let m=document.getElementById('msgInput').value||'Nenu bagunnanu, meeru ela unnaru?'; window.open('https://wa.me/919999999999?text='+encodeURIComponent(m),'_blank'); show('WhatsApp lo message pampanu.'); }
+function bookVizagDoctor(){ show("Vizag lo Doctor ki phone chesi token teesukuntunnanu... KGH Vizag / Apollo Vizag - Repu 10 AM - Token No: 12. Bayapadakandi, nenu gurthu chesthanu. Hospital ki velladaniki Auto kuda chepthanu.",'green'); setTimeout(()=>{ window.open('https://wa.me/919999999999?text='+encodeURIComponent('Namaste, Vaani app - Vizag. Doctor appointment kavali. Patient Vizag lo unnaru. Repu 10 AM. Token kavali. Please confirm.'),'_blank'); },900); }
+function handle(raw){
+let t=norm(raw); document.getElementById('heard').innerText='"'+raw+'"';
+if(state==='confirm_send'){ if(isNo(t)&&!isYes(t)){state='idle';show("Sare, cancel chesanu.");return;} if(isYes(t)){balance-=pendingAmount;document.getElementById('bal').innerText=balance;document.getElementById('hist').innerText=`Last: ${pendingPerson} ki ₹${pendingAmount}`;state='idle';show(`${pendingPerson} ki ${pendingAmount} rupayalu pampanu. Ayipoyindi! Balance ${balance} rupayalu.`,'green');return;} show("Avunu leda Vaddu ani cheppandi."); return; }
+if(state==='confirm_call'){ if(isYes(t)){state='idle';callPerson(pendingPerson);return;} if(isNo(t)){state='idle';show("Cancel chesanu");return;} }
+if(state==='confirm_kirana'){ if(isYes(t)){let tot=updateKirana();state='idle';kirana=[];updateKirana();show(`Kirana order pampanu. Total ${tot} rupayalu. Vizag lo shop vadu 1 gantaloki testhadu.`,'green');return;} if(isNo(t)){state='idle';show("Kirana cancel");return;} }
+if(state==='confirm_hospital'){ if(isYes(t)){state='idle';bookVizagDoctor();return;} if(isNo(t)){state='idle';show("Doctor cancel");return;} }
+if(state==='waiting_msg'){ document.getElementById('msgInput').value=raw; sendWhatsApp(); state='idle'; return; }
+if(has(t,['padipoy','fall','gir ','help','kapada','bacha','emergency','ambulance','chest pain','gundelo','breath','bayam','danger','chavu','kallu tirig']) && !has(t,['baguled','baledu','jwaram','fever'])){ sos(); return; }
+if(has(t,['doctor','daktar','dactor','doc ','vaidhy','vaidy','vaidya','aaspatri','aspatri','hospital','haspatal','hosp','kgh','apollo','medicover','care hosp','token','book','appointment','baguled','baledu','bavledu','jwaram','fever','bukhar','dagg','cough','thalka','tala noppi','kallu noppi','headache','mandulu','mandu','dava','tablet','goli','injection','sugar','bp ','pressure','vanti','vomit','kadupu noppi','opika ledu','nalata ledu','weak','vizag lo hospital','hospital ki vell','vellali','chupinch','chupinchu','checkup'])){
+  if(has(t,['mandulu','mandu','dava','tablet','goli','techuko'])){ show("Mandulu gurthu chesanu. Vizag lo shop ki chepthanu - Mandulu techistharu. 1 tablet veyyandi, neellu tagandi.",'green'); return; }
+  state='confirm_hospital'; show("Meeku baguledha? Bayapadakandi. Vizag lo Doctor ki phone chesi token teesukona? KGH / Apollo - Repu 10 AM. Avunu anandi. Hospital ki vellali ante Auto kuda chepthanu."); return;
 }
-function resetApp(){
-  state=1; pendingAmount=0;
-  document.getElementById('stepLabel').innerText='STEP 1: Mic meeda click cheyyandi';
-  document.getElementById('heard').innerText='...';
-  let msg = lang==='te' ? "Nenu meeku vintunnanu. 'Amma ki 100 pampu' ani cheppandi." : lang==='hi' ? "Main sun raha hoon. 'Amma ko 100 bhejo' bolo." : "I am listening. Say 'Send 100 to Amma'.";
-  document.getElementById('vaaniMsg').innerText=msg;
-  document.getElementById('vaaniMsg').className='bubble';
-  speakText(msg);
+if(has(t,['kirana','palu','milk','rice','biyyam','pappu','dal','oil','noone','neellu','water','paani','kooragay','vegetab','sabzi','bread','eggs','gudlu','chekkara','sugar','tea','chai','coffee','kavali','ledu','ayipoy','techuko','order','saman'])){
+  if(has(t,['order','pampu','cheyyi'])){ if(kirana.length===0){ show("Kirana list khali ga undi. Mundhu 'Palu kavali' ani cheppandi."); return; } state='confirm_kirana'; show(`Kirana order cheyyana? Total ₹${updateKirana()}. Avunu anandi.`); return; }
+  let map=[['palu','palu'],['milk','palu'],['rice','rice'],['biyyam','rice'],['pappu','pappu'],['dal','pappu'],['oil','oil'],['neellu','neellu'],['water','neellu'],['kooragay','kooragayalu'],['bread','bread'],['eggs','eggs'],['chekkara','chekkara'],['tea','tea'],['coffee','coffee']];
+  for(let [k,v] of map){ if(t.includes(k)){ addKirana(v); return; } }
+  show("Kirana lo em kavali? Palu, Rice, Pappu - edi ayina cheppandi."); return;
 }
-function speakText(t){
-  try{
-    let u=new SpeechSynthesisUtterance(t);
-    u.lang=lang==='te'?'te-IN':lang==='hi'?'hi-IN':'en-IN';
-    speechSynthesis.cancel(); speechSynthesis.speak(u);
-  }catch(e){}
+if(has(t,['video'])){ videoCall(); return; }
+if(has(t,['message','msg ','sms'])){ state='waiting_msg'; show("Message emi cheppamantaru? Cheppandi, nenu 【entity-WhatsApp¦canonical_name=WhatsApp】 lo pampisthanu."); return; }
+if(has(t,['call','phone','fon','matlad','baat','kalam','ring'])){ let p=findPerson(t)||'Amma'; pendingPerson=p; state='confirm_call'; show(`${p} ki call cheyyana? Avunu anandi.`); return; }
+if(has(t,['balance','balanc','entha dabbu','paisa'])){ show(`Mee balance ${balance} rupayalu. Bayapadakandi.`); return; }
+if(has(t,['pampu','bhejo','send','transfer','pay','ivvu','pampinchu'])){ let p=findPerson(t)||'Amma'; let amt=parseAmount(t)||100; pendingPerson=p; pendingAmount=amt; state='confirm_send'; show(`${p} ki ${amt} rupayalu pampana? Avunu anandi.`); return; }
+if(has(t,['time','samayam','gantalu','baje'])){ let d=new Date(); show(`Ippudu time ${d.getHours()%12||12}:${d.getMinutes()}.`); return; }
+if(has(t,['bus','bussu','auto','rtc'])){ show("Vizag lo Bus 30 nimishalalo vastundi. RTC Complex / Maddilapalem nunchi. Auto kavala ante cheppandi."); return; }
+if(has(t,['pension'])){ show("Pension ee nelalo vachindi. Balance lo add ayyindi."); return; }
+if(has(t,['weather','varsham','mausam','enda','chali','vanalu'])){ show("Vizag lo ivala weather bagundi. Konchem endaga undi, neellu tagandi."); return; }
+if(has(t,['aakali','hungry','bhook','tiffin','khana'])){ show("Aakali vestunda? Tiffin order cheyyana?"); return; }
+if(has(t,['namaste','hello','ela unnav','how are','kaise'])){ show("Namaste! Nenu bagunnanu, Vizag nunchi. Meeru ela unnaru? Emi kavali?"); return; }
+if(has(t,['ontari','akele','lonely','bor ','bore'])){ show("Meeru ontari kaadu, nenu unnanu. Evariki call cheyyala?"); return; }
+if(has(t,['katha','story','pata','song'])){ show("Oka chinna katha: Oka manchi manishi roju andariki help chesevadu. Meeru kuda alantivaru."); return; }
+show("Nenu vinanu. Malli slow ga cheppandi. 'Vizag lo hospital ki vellali' annna, 'Doctor ki call chey' annna, 'Vaidhyudu ki chupinchali' annna - ela cheppina parledu.");
 }
-function parseAmount(text){
-  let m=text.match(/(\d+)/); if(m) return parseInt(m[1]);
-  if(text.includes('వెయ్యి')||text.includes('veyyi')||text.includes('thousand')||text.includes('hazaar')||text.includes('हज़ार')) return 1000;
-  if(text.includes('ఐదు వంద')||text.includes('aidu vanda')||text.includes('five hundred')||text.includes('paanch sau')||text.includes('पाँच सौ')) return 500;
-  if(text.includes('రెండు వంద')||text.includes('rendu vanda')||text.includes('two hundred')||text.includes('do sau')||text.includes('दो सौ')) return 200;
-  if(text.includes('వంద')||text.includes('vanda')||text.includes('sau')||text.includes('सौ')||text.includes('hundred')) return 100;
-  if(text.includes('fifty')||text.includes('యాభై')||text.includes('yabhai')) return 50;
-  return 0;
-}
-function isYes(text){
-  return text.includes('avunu')||text.includes('అవును')||text.includes('yes')||text.includes('haan')||text.includes('हाँ')||text.includes('pampinchu')||text.includes('పంపించు')||text.includes('bhejo')||text.includes('भेजो');
-}
-function isNo(text){
-  return text.includes('vaddu')||text.includes('వద్దు')||text.includes('nahi')||text.includes('नहीं')||text.includes('cancel');
-}
-function isAmma(text){
-  return text.includes('amma')||text.includes('అమ్మ')||text.includes('अम्मा')||text.includes('maa')||text.includes('mom');
-}
-function isBalance(text){
-  return text.includes('balance')||text.includes('బ్యాలెన్స్')||text.includes('बैलेंस')||text.includes('entha')||text.includes('ఎంత')||text.includes('kitna');
-}
-function handle(text){
-  let low=text.toLowerCase();
-  document.getElementById('heard').innerText='"'+text+'"';
-  if(state===1){
-    if(isBalance(low)){
-      let msg=lang==='te'?"Mee balance 5,250 rupayalu.":lang==='hi'?"Aapka balance 5,250 rupaye hai.":"Your balance is 5,250 rupees.";
-      document.getElementById('vaaniMsg').innerText=msg; speakText(msg); return;
-    }
-    if(isAmma(low)){
-      let amt=parseAmount(low); if(amt===0) amt=100; pendingAmount=amt; state=2;
-      document.getElementById('stepLabel').innerText='STEP 2: Confirm cheyyandi - Avunu anandi';
-      let msg=lang==='te'?`Amma ki ${amt} rupayalu pampana? Avunu anandi.`:lang==='hi'?`Amma ko ${amt} rupaye bheju? Haan bolo.`:`Send ${amt} rupees to Amma? Say Yes to confirm.`;
-      document.getElementById('vaaniMsg').innerText=msg; speakText(msg); return;
-    }
-    let msg=lang==='te'?"Ardham kaledu. 'Amma ki 100 pampu' ani cheppandi.":lang==='hi'?"Samajh nahi aaya. 'Amma ko 100 bhejo' bolo.":"Not understood. Say 'Send 100 to Amma'.";
-    document.getElementById('vaaniMsg').innerText=msg; speakText(msg);
-  } else if(state===2){
-    if(isNo(low)){ state=1; let msg=lang==='te'?"Cancel chesanu. Malli cheppandi.":lang==='hi'?"Cancel kar diya. Phir se bolo.":"Cancelled. Try again."; document.getElementById('vaaniMsg').innerText=msg; speakText(msg); return; }
-    if(isYes(low)){
-      state=3; document.getElementById('stepLabel').innerText='STEP 3 DONE: Money pampanu';
-      let msg=lang==='te'?`Amma ki ${pendingAmount} rupayalu pampanu. Ayipoyindi!`:lang==='hi'?`Amma ko ${pendingAmount} rupaye bhej diye. Ho gaya!`:`Sent ${pendingAmount} rupees to Amma. Done!`;
-      document.getElementById('vaaniMsg').innerText=msg; document.getElementById('vaaniMsg').className='bubble green'; speakText(msg); return;
-    }
-    let msg=lang==='te'?"Avunu leda Vaddu ani cheppandi.":lang==='hi'?"Haan ya Nahi bolo.":"Say Yes or No.";
-    document.getElementById('vaaniMsg').innerText=msg; speakText(msg);
-  } else { resetApp(); }
-}
-function startListen(){
-  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){alert('Chrome lo open cheyyandi');return;}
-  let rec=new SR();
-  rec.lang=lang==='te'?'te-IN':lang==='hi'?'hi-IN':'en-IN';
-  rec.interimResults=false;
-  let btn=document.getElementById('speakBtn');
-  btn.innerText='Vintunnanu...'; btn.className='speak listening';
-  rec.onresult=(e)=>{let t=e.results[0][0].transcript; btn.innerText='🎤 Matladandi - Tap to Speak'; btn.className='speak'; handle(t);};
-  rec.onerror=()=>{btn.innerText='🎤 Matladandi - Tap to Speak'; btn.className='speak';};
-  rec.onend=()=>{btn.innerText='🎤 Matladandi - Tap to Speak'; btn.className='speak';};
-  rec.start();
-}
+function quickAsk(txt){ handle(txt); }
+function startListen(){ let SR=window.SpeechRecognition||window.webkitSpeechRecognition; if(!SR){alert('Chrome lo open cheyyandi');return;} let rec=new SR(); rec.lang=lang==='te'?'te-IN':lang==='hi'?'hi-IN':'en-IN'; rec.interimResults=false; let b=document.getElementById('speakBtn'); b.innerText='Vintunnanu... Cheppandi'; b.className='speak listening'; rec.onresult=(e)=>{let tx=e.results[0][0].transcript; b.innerText='🎤 MATLADANDI - TAP TO SPEAK'; b.className='speak'; handle(tx);}; rec.onerror=()=>{b.innerText='🎤 MATLADANDI - TAP TO SPEAK';b.className='speak';}; rec.onend=()=>{b.innerText='🎤 MATLADANDI - TAP TO SPEAK';b.className='speak';}; rec.start(); }
+window.onload=()=>{ setTimeout(()=>{ speakText("Namaste! Nenu Vaani ni, Vizag nunchi. Meeku em kavalo cheppandi."); },800); };
+resetApp();
 </script>
 </body>
-</html>
+</html>>
