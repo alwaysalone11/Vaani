@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="te">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vaani - Voice for Elders</title>
+<style>
+body{font-family:system-ui;background:#0f172a;color:white;text-align:center;padding:20px}
+.card{background:white;color:#111;border-radius:20px;padding:24px;max-width:480px;margin:20px auto}
+h1{font-size:42px;margin:5px} p{font-size:18px;color:#475569}
+button{font-size:22px;padding:18px 28px;border-radius:50px;border:0;background:#2563eb;color:white;font-weight:700;width:100%;margin-top:12px}
+button.stop{background:#dc2626}
+#heard{font-size:24px;font-weight:700;min-height:40px}
+#reply{font-size:20px;background:#fef3c7;padding:14px;border-radius:12px;margin-top:12px}
+.step{font-size:14px;background:#e0e7ff;padding:8px 12px;border-radius:20px;display:inline-block}
+.success{background:#dcfce7 !important}
+.small{font-size:14px;color:#94a3b8;margin-top:16px}
+.lang button{width:auto;padding:8px 16px;font-size:15px;background:#e2e8f0;color:#111;margin:4px}
+.lang button.active{background:#111;color:white}
+</style>
+</head>
+<body>
+<h1>Vaani</h1>
+<p>Cheppandi, Ayipoyindi. / Just say it, it's done.</p>
+<div class="lang">
+<button onclick="setLang('te-IN',this)" class="active">Telugu</button>
+<button onclick="setLang('en-IN',this)">English</button>
+<button onclick="setLang('hi-IN',this)">Hindi</button>
+</div>
+<div class="card">
+<span class="step" id="stepText">STEP 1: Mic meeda click cheyyandi</span>
+<div id="heard">...</div>
+<div id="reply">Nenu meeku vintunnanu. "Amma ki 100 pampu" ani cheppandi.</div>
+<button id="micBtn" onclick="toggleMic()">🎤 Matladandi - Tap to Speak</button>
+<button onclick="resetAll()" style="background:#e2e8f0;color:#111">Malli Modalu Pettandi</button>
+<div style="margin-top:14px;text-align:left;font-size:15px">
+<b>Try cheyyandi:</b><br>
+- Amma ki 100 pampu<br>
+- Naa balance entha?<br>
+- Amma ki 500 pampu
+</div>
+</div>
+<p class="small">Vaani - Everyday access for all - No secret keys - Works in browser<br>Demo only - Real money move avvadhu</p>
+<script>
+let lang='te-IN', rec=null, listening=false, state='idle', pendingAmount=0, pendingPerson='';
+function setLang(l,btn){lang=l; document.querySelectorAll('.lang button').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); speak(l=='te-IN'?'Telugu select ayyindi':l=='hi-IN'?'Hindi chuna gaya':'English selected');}
+function speak(text){ speechSynthesis.cancel(); let u=new SpeechSynthesisUtterance(text); u.lang=lang; u.rate=0.9; speechSynthesis.speak(u); }
+function resetAll(){ state='idle'; document.getElementById('heard').innerText='...'; document.getElementById('reply').innerText= lang=='te-IN'?'Nenu meeku vintunnanu. "Amma ki 100 pampu" ani cheppandi.':'I am listening. Say "Send 100 to Amma".'; document.getElementById('stepText').innerText='STEP 1: Mic meeda click cheyyandi'; document.getElementById('reply').classList.remove('success');}
+function toggleMic(){
+ if(listening){ rec.stop(); return; }
+ let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){ alert('Chrome browser lo open cheyyandi'); return; }
+ rec=new SR(); rec.lang=lang; rec.interimResults=false;
+ rec.onstart=()=>{ listening=true; document.getElementById('micBtn').innerText='Vintunnanu... Aapadaniki malli click cheyyandi'; document.getElementById('micBtn').classList.add('stop'); };
+ rec.onend=()=>{ listening=false; document.getElementById('micBtn').innerText='Matladandi - Tap to Speak'; document.getElementById('micBtn').classList.remove('stop'); };
+ rec.onresult=(e)=>{ let t=e.results[0][0].transcript; document.getElementById('heard').innerText='"'+t+'"'; handle(t.toLowerCase()); };
+ rec.start();
+}
+function handle(t){
+ let reply=document.getElementById('reply');
+ let amountMatch=t.match(/\d+/); let amount=amountMatch?parseInt(amountMatch[0]):0;
+ let person = t.includes('amma')||t.includes('mother')||t.includes('maa') ? 'Amma' : t.includes('nanna')||t.includes('father') ? 'Nanna' : 'Amma';
+ if(t.includes('balance')){
+   reply.innerText = lang=='te-IN' ? 'Mee balance 4,850 rupees undi.' : 'Your balance is 4,850 rupees.';
+   speak(reply.innerText); document.getElementById('stepText').innerText='STEP DONE: Balance cheppanu'; return;
+ }
+ if(state=='confirm'){
+   if(t.includes('avunu')||t.includes('yes')||t.includes('haan')||t.includes('sare')||t.includes('ok')||t.includes('correct')){
+     reply.innerText = lang=='te-IN' ? `${pendingPerson} ki ${pendingAmount} rupees pampanu. Ayipoyindi!` : `Sent ${pendingAmount} rupees to ${pendingPerson}. Done!`;
+     reply.classList.add('success'); speak(reply.innerText); document.getElementById('stepText').innerText='STEP 3 DONE: Money pampanu'; state='idle'; return;
+   } else { reply.innerText='Sare, cancel chesanu.'; speak(reply.innerText); state='idle'; return; }
+ }
+ if(amount>0){
+   pendingAmount=amount; pendingPerson=person; state='confirm';
+   reply.innerText = lang=='te-IN' ? `${person} ki ${amount} rupees pampala? Avunu ante Avunu anandi.` : `Send ${amount} rupees to ${person}? Say Yes to confirm.`;
+   speak(reply.innerText); document.getElementById('stepText').innerText='STEP 2: Confirm cheyyandi - Avunu anandi'; return;
+ }
+ reply.innerText = lang=='te-IN' ? 'Ardham kaledu. "Amma ki 100 pampu" ani cheppandi.' : 'Did not understand. Say "Send 100 to Amma".';
+ speak(reply.innerText);
+}
+</script>
+</body>
+</html>
