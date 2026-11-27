@@ -3,36 +3,36 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#123c9a">
-<title>Vaani — Voice Friend for Everyone</title>
+<meta name="theme-color" content="#123fbd">
+<title>Vaani — Your Voice Is Enough</title>
 <style>
-:root{--blue:#174bd4;--blue2:#0d368e;--bg:#f3f6ff;--ink:#172033;--card:#fff;--muted:#63708a;--green:#15834a;--red:#bd3434}
+:root{--blue:#1749c9;--blue2:#0d2f89;--cream:#f7f7f0;--ink:#16213a;--green:#187b55}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Telugu",Arial,sans-serif}
-main{max-width:700px;margin:0 auto;padding:18px 16px 40px}
-header{text-align:center;padding:12px 0 18px}
-.logo{width:64px;height:64px;margin:auto;border-radius:22px;background:var(--blue);color:white;display:grid;place-items:center;font-size:34px;box-shadow:0 8px 20px #174bd433}
-h1{font-size:32px;margin:8px 0 0}
-.tag{color:var(--muted);margin:4px 0 0}
-.card{background:var(--card);border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 4px 18px #1720330b}
-label{display:block;font-weight:650;margin:4px 0 8px}
-select{width:100%;font:inherit;border:1px solid #d6deef;border-radius:12px;padding:12px;background:white;color:var(--ink)}
-.mic-wrap{text-align:center;padding:8px 0}
-#mic{border:0;background:var(--blue);color:#fff;width:150px;height:150px;border-radius:50%;font-size:48px;box-shadow:0 8px 0 var(--blue2),0 14px 28px #174bd433;cursor:pointer;touch-action:manipulation}
-#mic:active{transform:translateY(3px);box-shadow:0 5px 0 var(--blue2)}
-#mic.listening{background:var(--red);box-shadow:0 8px 0 #842424,0 0 0 12px #bd34341c;animation:pulse 1.3s infinite}
-@keyframes pulse{50%{transform:scale(1.04)}}
-#status{font-weight:650;margin:16px 0 6px}
-#status.good{color:var(--green)}#status.error{color:var(--red)}
-#heard,#reply{border-radius:14px;padding:14px;min-height:58px;background:#f1f5ff;line-height:1.55;white-space:pre-wrap}
-#reply{background:#edf8f1}
-.small{font-size:13px;color:var(--muted);line-height:1.5}
+body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
+main{max-width:760px;margin:0 auto;padding:18px}
+header{text-align:center;padding:20px 12px 8px}
+.logo{width:64px;height:64px;border-radius:22px;background:var(--blue);color:white;display:grid;place-items:center;font-size:32px;margin:0 auto 12px}
+h1{font-size:38px;margin:0;color:var(--blue);letter-spacing:-1px}
+.tag{font-size:18px;font-weight:650;margin:5px 0}
+.sub{color:#58657b;line-height:1.5}
+.panel{background:white;border-radius:22px;padding:20px;margin:15px 0;box-shadow:0 8px 28px #10244a12;border:1px solid #e4e8f1}
+label{display:block;font-weight:700;margin:0 0 8px}
+select,button{font:inherit}
+select{width:100%;padding:14px;border-radius:12px;border:1px solid #c9d1e1;background:#fff;font-size:17px}
+.mic-wrap{text-align:center;padding:12px 0}
+#mic{width:min(230px,65vw);height:min(230px,65vw);border-radius:50%;border:8px solid #d9e3ff;background:var(--blue);color:#fff;font-size:26px;font-weight:800;box-shadow:0 10px 0 var(--blue2),0 15px 28px #1749c933;cursor:pointer}
+#mic:active{transform:translateY(4px);box-shadow:0 6px 0 var(--blue2)}
+#mic.listening{background:#c5363d;box-shadow:0 10px 0 #85252b,0 15px 28px #c5363d33;border-color:#ffe2e2}
+#status{font-size:17px;font-weight:700;text-align:center;margin:12px 0;min-height:28px;color:var(--blue)}
+#heard{background:#f3f6fc;border-radius:14px;padding:14px;min-height:54px;line-height:1.5}
+#reply{background:#eaf5ef;border-radius:14px;padding:14px;min-height:72px;line-height:1.55;margin-top:10px}
 .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
-.action{background:#fff;border:1px solid #d6deef;border-radius:14px;padding:12px;font:inherit;font-weight:600;color:var(--ink);cursor:pointer}
-.action:active{background:#e9efff}
-.row{display:flex;gap:10px;flex-wrap:wrap}
-.secondary{border:0;border-radius:12px;background:#e8edfb;color:var(--blue2);font-weight:700;padding:12px 16px;font:inherit;cursor:pointer}
-footer{text-align:center;color:var(--muted);font-size:12px;padding-top:10px}
+.action{padding:15px 10px;border-radius:15px;border:1px solid #cbd6ec;background:#f8faff;font-weight:750;color:var(--blue);cursor:pointer;min-height:70px}
+.secondary{padding:12px 15px;border:1px solid #cbd6ec;border-radius:12px;background:white;color:var(--ink);font-weight:700;cursor:pointer}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.note{font-size:13px;color:#69758a;line-height:1.5}
+footer{text-align:center;font-size:13px;color:#69758a;padding:16px}
+@media(min-width:600px){main{padding:28px}.actions{grid-template-columns:repeat(3,1fr)}}
 </style>
 </head>
 <body>
@@ -40,160 +40,136 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding-top:10px}
 <header>
 <div class="logo" aria-hidden="true">🎙️</div>
 <h1>Vaani</h1>
-<p class="tag">Your voice friend — speak naturally</p>
+<div class="tag">Your voice is enough.</div>
+<p class="sub">A simple voice-first helper designed with elders in mind.<br>Choose your language, tap the mic, and speak.</p>
 </header>
-
-<section class="card">
-<label for="language">Voice language</label>
+<section class="panel">
+<label for="language">Voice language / మాట్లాడే భాష</label>
 <select id="language">
 <option value="te-IN">తెలుగు (Telugu)</option>
-<option value="en-IN">English (India)</option>
 <option value="hi-IN">हिन्दी (Hindi)</option>
+<option value="en-IN">English (India)</option>
 <option value="ta-IN">தமிழ் (Tamil)</option>
 <option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
 <option value="ml-IN">മലയാളം (Malayalam)</option>
 <option value="mr-IN">मराठी (Marathi)</option>
 <option value="bn-IN">বাংলা (Bengali)</option>
-<option value="en-US">English (US)</option>
 </select>
 <div class="mic-wrap">
-<button id="mic" aria-label="Start speaking">🎤</button>
-<div id="status" role="status">Tap the microphone and speak</div>
-<p class="small">Tap once, speak, then wait. Vaani will stop listening after a pause.</p>
+<button id="mic" aria-label="Tap to speak">TAP<br>TO SPEAK</button>
+<div id="status" role="status" aria-live="polite">Ready. Tap the microphone and speak.</div>
 </div>
-</section>
-
-<section class="card">
-<label>What Vaani heard</label>
-<div id="heard">Your speech text will appear here.</div>
-</section>
-<section class="card">
-<label>Vaani's response</label>
-<div id="reply">Namaste! Tap the microphone and tell me what you need.</div>
-<div class="row" style="margin-top:12px">
-<button class="secondary" id="repeat">🔊 Repeat response</button>
+<label>Your words / మీరు చెప్పింది</label>
+<div id="heard">Your recognized speech will appear here.</div>
+<label style="margin-top:14px">Vaani's response / వాణి సమాధానం</label>
+<div id="reply">Namaskaram! I am Vaani. How can I help you?</div>
+<div class="row">
+<button class="secondary" id="repeat">🔊 Repeat reply</button>
 <button class="secondary" id="stop">⏹ Stop voice</button>
 </div>
+<p class="note">Voice recognition availability depends on your browser/device and internet connection. This demo does not make real bookings, send money, order goods, or call emergency services automatically.</p>
 </section>
-<section class="card">
-<label>Quick voice help</label>
+<section class="panel">
+<label>Try a quick request / త్వరగా ప్రయత్నించండి</label>
 <div class="actions">
-<button class="action" data-intent="doctor">🏥 Doctor / Hospital</button>
-<button class="action" data-intent="emergency">🆘 Emergency</button>
-<button class="action" data-intent="shopping">🛒 Groceries</button>
-<button class="action" data-intent="travel">🚌 Travel / Bus</button>
-<button class="action" data-intent="call">📞 Call someone</button>
-<button class="action" data-intent="reminder">⏰ Reminder</button>
+<button class="action" data-intent="hospital">🏥 Hospital help</button>
+<button class="action" data-intent="medicine">💊 Medicine reminder</button>
+<button class="action" data-intent="bus">🚌 Bus information</button>
+<button class="action" data-intent="grocery">🛒 Grocery help</button>
+<button class="action" data-intent="pension">👵 Pension information</button>
+<button class="action" data-intent="emergency">🆘 Emergency help</button>
 </div>
-<p class="small" style="margin-top:12px">Demo assistant: these buttons provide guidance and do not place calls, book appointments, transfer money, or contact emergency services automatically.</p>
 </section>
-<footer>VAANI · Accessible voice-first demo</footer>
+<footer>VAANI · Voice-first accessibility prototype · Demo only</footer>
 </main>
 <script>
-(() => {
- const mic=document.getElementById('mic'), statusEl=document.getElementById('status'),
- heard=document.getElementById('heard'), replyEl=document.getElementById('reply'),
- lang=document.getElementById('language');
- const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
- let recognition=null, listening=false, lastReply='Namaste! Tap the microphone and tell me what you need.';
- function setStatus(text,kind=''){statusEl.textContent=text;statusEl.className=kind;}
- function speak(text){
-   lastReply=text;
-   replyEl.textContent=text;
-   if(!('speechSynthesis' in window)){setStatus('Speech output is not supported in this browser.','error');return;}
-   speechSynthesis.cancel();
-   const u=new SpeechSynthesisUtterance(text);
-   u.lang=lang.value; u.rate=0.88; u.pitch=1;
-   u.onstart=()=>setStatus('Vaani is speaking…','good');
-   u.onend=()=>{if(!listening)setStatus('Ready. Tap mic to speak again.','good');};
-   u.onerror=()=>{if(!listening)setStatus('Response shown as text. Voice playback failed.','error');};
-   speechSynthesis.speak(u);
- }
- function intentReply(text){
-   const t=(text||'').toLowerCase();
-   if(/doctor|hospital|clinic|medical|జర|జ్వరం|డాక్టర్|ఆస్పత్రి|హాస్పత్రి|బాగోల|మందు|నొప్పి/.test(t))
-      return 'మీకు వైద్య సహాయం కావాలి అనిపిస్తోంది. మీ దగ్గరలోని ఆసుపత్రి లేదా క్లినిక్‌ను వెతకండి. అత్యవసర పరిస్థితి అయితే స్థానిక అత్యవసర నంబర్‌కు కాల్ చేయండి. నేను appointment నిజంగా book చేయలేదు. మీకు ఎవరికి కాల్ చేయాలో చెప్పగలరా?';
-   if(/emergency|urgent|help me|సహాయం|అత్యవసర|కాపాడ|accident/.test(t))
-      return 'ఇది అత్యవసరమైతే వెంటనే స్థానిక emergency services కు కాల్ చేయండి లేదా దగ్గరలో ఉన్న వ్యక్తి సహాయం తీసుకోండి. Vaani స్వయంగా emergency call చేయదు. మీ location, సమస్యను దగ్గరలో ఉన్నవారికి చెప్పండి.';
-   if(/grocery|groceries|kirana|కిరాణ|పాలు|కూరగాయ|shopping|సరుక/.test(t))
-      return 'కిరాణా సరుకుల జాబితా తయారు చేయడంలో సహాయం చేస్తాను. ఏ సరుకులు కావాలి, ఎంత పరిమాణం కావాలి చెప్పండి. నేను నిజంగా order చేయలేదు.';
-   if(/bus|travel|train|వెళ్ళ|బస్సు|ప్రయాణ|టికెట్/.test(t))
-      return 'ప్రయాణం గురించి సహాయం చేస్తాను. ఎక్కడి నుంచి ఎక్కడికి వెళ్లాలి, ఎప్పుడు బయలుదేరాలి చెప్పండి. ఈ demo live bus timings లేదా tickets book చేయదు.';
-   if(/call|phone|ఫోన్|కాల్/.test(t))
-      return 'ఎవరికి call చేయాలనుకుంటున్నారు? వారి పేరు లేదా number చెప్పండి. ఈ demo స్వయంగా call చేయదు; phone dialerలో number పెట్టడంలో సహాయం చేయగలను.';
-   if(/money|send|transfer|డబ్బు|పంపు|upi|payment/.test(t))
-      return 'డబ్బు పంపే ముందు recipient, amount రెండూ జాగ్రత్తగా verify చేయండి. ఈ demo నిజమైన payment చేయదు. మీ bank లేదా UPI appలో మీరు స్వయంగా confirm చేయాలి.';
-   if(/remind|reminder|గుర్తు|రేపు|later|తర్వాత/.test(t))
-      return 'Reminder పెట్టాలనుకుంటున్నారా? ఏ విషయం, ఏ సమయానికి గుర్తు చేయాలి చెప్పండి. ఈ demo ప్రస్తుతం reminder notification schedule చేయదు.';
-   if(/hello|hi|namaste|నమస్క|హాయ్/.test(t))
-      return 'నమస్కారం! మీకు ఏ సహాయం కావాలి? ఆసుపత్రి, ప్రయాణం, కిరాణా, phone call లేదా ఇతర పని గురించి మాట్లాడండి.';
-   return 'మీ మాట విన్నాను: '+text+'. ఇంకా స్పష్టంగా అర్థం చేసుకోవడానికి, మీరు ఏ పని చేయాలనుకుంటున్నారో కొంచెం వివరంగా చెప్పగలరా? నెమ్మదిగా మళ్లీ మాట్లాడండి.';
- }
- function start(){
-   if(!SpeechRecognition){setStatus('Speech recognition not supported here. Open this HTTPS page in Chrome and try.','error');return;}
-   if(listening){try{recognition.stop();}catch(e){}return;}
-   if('speechSynthesis' in window)speechSynthesis.cancel();
-   recognition=new SpeechRecognition();
-   recognition.lang=lang.value;
-   recognition.continuous=false;
-   recognition.interimResults=true;
-   recognition.maxAlternatives=1;
-   let finalText='';
-   listening=true;mic.classList.add('listening');mic.textContent='⏹';
-   setStatus('Listening… Speak now.','good');
-   heard.textContent='';
-   recognition.onresult=(event)=>{
-     let interim='';
-     for(let i=event.resultIndex;i<event.results.length;i++){
-       const txt=event.results[i][0].transcript;
-       if(event.results[i].isFinal)finalText+=txt;
-       else interim+=txt;
-     }
-     heard.textContent=(finalText+' '+interim).trim()||'Listening…';
-   };
-   recognition.onerror=(event)=>{
-     listening=false;mic.classList.remove('listening');mic.textContent='🎤';
-     const messages={
-       'not-allowed':'Microphone permission denied. Chrome site settings → Microphone → Allow.',
-       'service-not-allowed':'Speech service blocked. Try Chrome on HTTPS and allow microphone.',
-       'no-speech':'No speech detected. Tap mic and speak soon after.',
-       'network':'Speech recognition network error. Check internet and try again.',
-       'audio-capture':'Microphone not available. Check phone microphone and permissions.',
-       'aborted':'Listening cancelled.'
-     };
-     setStatus(messages[event.error]||('Mic error: '+event.error+'. Try again.'),'error');
-   };
-   recognition.onend=()=>{
-     listening=false;mic.classList.remove('listening');mic.textContent='🎤';
-     if(finalText.trim()){
-       heard.textContent=finalText.trim();
-       const response=intentReply(finalText.trim());
-       setStatus('Speech captured successfully.','good');
-       speak(response);
-     }else if(!statusEl.classList.contains('error')){
-       setStatus('No speech captured. Tap mic, then speak clearly.','error');
-     }
-   };
-   try{recognition.start();}
-   catch(e){listening=false;mic.classList.remove('listening');mic.textContent='🎤';setStatus('Could not start mic. Please try again.','error');}
- }
- mic.addEventListener('click',start);
- document.getElementById('repeat').addEventListener('click',()=>speak(lastReply));
- document.getElementById('stop').addEventListener('click',()=>{if('speechSynthesis' in window)speechSynthesis.cancel();setStatus('Voice stopped.','good');});
- lang.addEventListener('change',()=>{setStatus('Language selected: '+lang.options[lang.selectedIndex].text+'. Tap mic to speak.');});
- document.querySelectorAll('[data-intent]').forEach(btn=>btn.addEventListener('click',()=>{
-   const i=btn.dataset.intent;
-   const canned={
-     doctor:'Doctor or hospital help selected. Tell me your symptoms and preferred area. This demo does not book appointments.',
-     emergency:'Emergency help selected. If danger or a medical emergency is happening now, call local emergency services immediately or ask someone nearby for help.',
-     shopping:'Grocery help selected. Tell me the items and quantities you need. This demo does not place orders.',
-     travel:'Travel help selected. Tell me your starting point and destination. This demo does not show live transport schedules.',
-     call:'Call assistance selected. Tell me who you want to call. This demo does not place phone calls.',
-     reminder:'Reminder assistance selected. Tell me what and when you want to remember. This demo does not schedule notifications.'
-   };
-   speak(canned[i]||'How can I help?');
- }));
- if(!SpeechRecognition)setStatus('Your browser does not support speech recognition. Try Chrome on an HTTPS live website.','error');
+(()=>{
+const $=id=>document.getElementById(id);
+const lang=$("language"),mic=$("mic"),status=$("status"),heard=$("heard"),reply=$("reply");
+let recognition=null, listening=false, lastText="",lastReply="";
+const replies={
+te:{
+welcome:"నమస్కారం! నేను వాణి. మీకు ఎలా సహాయం చేయాలి?",
+hospital:"హాస్పిటల్ సహాయం కావాలా? మీ దగ్గరలోని ఆసుపత్రి గురించి కుటుంబ సభ్యులను అడగవచ్చు. ఈ డెమో నిజమైన టోకెన్ బుక్ చేయదు.",
+medicine:"మందుల సమయం గుర్తు పెట్టుకోవడంలో సహాయం చేస్తాను. ఏ మందు, ఏ సమయం చెప్పండి. ఈ డెమో రిమైండర్‌ను నిజంగా షెడ్యూల్ చేయదు.",
+bus:"బస్సు సమాచారం కావాలా? మీ గమ్యస్థానం చెప్పండి. ఈ డెమో ప్రత్యక్ష బస్సు సమయాలు చూపించదు.",
+grocery:"కిరాణా జాబితా తయారు చేయడంలో సహాయం చేస్తాను. ఏ వస్తువులు కావాలో చెప్పండి. ఈ డెమో ఆర్డర్ పెట్టదు.",
+pension:"పెన్షన్ సమాచారం కోసం మీ రాష్ట్ర అధికారిక సేవా కేంద్రం లేదా ప్రభుత్వ వెబ్‌సైట్‌ను సంప్రదించండి. ఈ డెమో దరఖాస్తు సమర్పించదు.",
+emergency:"మీరు ప్రమాదంలో ఉంటే, భారతదేశంలో 112 అత్యవసర సేవలకు కాల్ చేయండి లేదా దగ్గరలో ఉన్నవారి సహాయం తీసుకోండి. ఈ డెమో స్వయంగా కాల్ చేయదు.",
+clarify:"క్షమించండి, నాకు పూర్తిగా అర్థం కాలేదు. దయచేసి నెమ్మదిగా మళ్లీ చెప్పండి."
+},
+hi:{
+welcome:"नमस्ते! मैं वाणी हूँ। मैं आपकी क्या मदद कर सकती हूँ?",
+hospital:"अस्पताल की मदद चाहिए? अपने पास के अस्पताल की जानकारी परिवार से लें। यह डेमो वास्तविक अपॉइंटमेंट नहीं बुक करता।",
+medicine:"दवा का समय याद रखने में मदद कर सकती हूँ। यह डेमो असली रिमाइंडर सेट नहीं करता।",
+bus:"बस की जानकारी चाहिए? अपना गंतव्य बताइए। यह डेमो लाइव बस समय नहीं दिखाता।",
+grocery:"किराने की सूची बनाने में मदद कर सकती हूँ। यह डेमो ऑर्डर नहीं करता।",
+pension:"पेंशन के लिए सरकारी पोर्टल या सेवा केंद्र से जानकारी लें। यह डेमो आवेदन जमा नहीं करता।",
+emergency:"आपात स्थिति में भारत में 112 पर कॉल करें या आसपास किसी से मदद लें। यह डेमो खुद कॉल नहीं करता।",
+clarify:"माफ़ कीजिए, समझ नहीं आया। कृपया धीरे से फिर बोलिए।"
+},
+en:{
+welcome:"Hello! I am Vaani. How can I help you?",
+hospital:"You need hospital help. Please ask a family member to help find a nearby hospital. This demo does not book a real appointment.",
+medicine:"I can help you think about a medicine reminder. This demo does not set an actual reminder.",
+bus:"You need bus information. Tell me your destination. This demo does not show live bus timings.",
+grocery:"I can help make a grocery list. This demo does not place an order.",
+pension:"For pension information, please use an official government portal or service centre. This demo does not submit applications.",
+emergency:"For emergencies in India, call 112 or ask someone nearby for help. This demo does not call emergency services.",
+clarify:"Sorry, I did not understand. Please try speaking slowly again."
+},
+ta:{welcome:"வணக்கம்! நான் வாணி. உங்களுக்கு எப்படி உதவலாம்?",hospital:"மருத்துவமனை உதவி வேண்டுமா? அருகிலுள்ள மருத்துவமனைக்கு குடும்பத்தினரின் உதவியைப் பெறுங்கள். இந்த டெமோ முன்பதிவு செய்யாது.",medicine:"மருந்து நேரத்தை நினைவூட்ட உதவலாம். இந்த டெமோ உண்மையான நினைவூட்டலை அமைக்காது.",bus:"பேருந்து தகவல் வேண்டுமா? உங்கள் இலக்கைச் சொல்லுங்கள். நேரடி பேருந்து நேரம் இந்த டெமோவில் இல்லை.",grocery:"மளிகைப் பட்டியல் தயாரிக்க உதவலாம். இந்த டெமோ ஆர்டர் செய்யாது.",pension:"ஓய்வூதியத் தகவலுக்கு அதிகாரப்பூர்வ அரசு இணையதளம் அல்லது சேவை மையத்தை அணுகுங்கள்.",emergency:"அவசரநிலையில் இந்தியாவில் 112 அழைக்கவும் அல்லது அருகிலுள்ளவரிடம் உதவி கேளுங்கள். இந்த டெமோ அழைக்காது.",clarify:"மன்னிக்கவும், புரியவில்லை. மெதுவாக மீண்டும் சொல்லுங்கள்."},
+kn:{welcome:"ನಮಸ್ಕಾರ! ನಾನು ವಾಣಿ. ನಿಮಗೆ ಹೇಗೆ ಸಹಾಯ ಮಾಡಲಿ?",hospital:"ಆಸ್ಪತ್ರೆಯ ಸಹಾಯ ಬೇಕೇ? ಹತ್ತಿರದ ಆಸ್ಪತ್ರೆಗಾಗಿ ಕುಟುಂಬದವರ ಸಹಾಯ ಪಡೆಯಿರಿ. ಈ ಡೆಮೊ ಅಪಾಯಿಂಟ್‌ಮೆಂಟ್ ಬುಕ್ ಮಾಡುವುದಿಲ್ಲ.",medicine:"ಔಷಧಿ ಸಮಯ ನೆನಪಿಸಲು ಸಹಾಯ ಮಾಡಬಹುದು. ಈ ಡೆಮೊ ನಿಜವಾದ ರಿಮೈಂಡರ್ ಹೊಂದಿಸುವುದಿಲ್ಲ.",bus:"ಬಸ್ ಮಾಹಿತಿ ಬೇಕೇ? ನಿಮ್ಮ ಗಮ್ಯಸ್ಥಾನ ಹೇಳಿ. ಈ ಡೆಮೊ ಲೈವ್ ಸಮಯ ತೋರಿಸುವುದಿಲ್ಲ.",grocery:"ಕಿರಾಣಿ ಪಟ್ಟಿಯನ್ನು ಮಾಡಲು ಸಹಾಯ ಮಾಡಬಹುದು. ಈ ಡೆಮೊ ಆರ್ಡರ್ ಮಾಡುವುದಿಲ್ಲ.",pension:"ಪಿಂಚಣಿ ಮಾಹಿತಿಗಾಗಿ ಅಧಿಕೃತ ಸರ್ಕಾರಿ ಪೋರ್ಟಲ್ ಅಥವಾ ಸೇವಾ ಕೇಂದ್ರ ಸಂಪರ್ಕಿಸಿ.",emergency:"ತುರ್ತು ಪರಿಸ್ಥಿತಿಯಲ್ಲಿ ಭಾರತದಲ್ಲಿ 112 ಗೆ ಕರೆ ಮಾಡಿ ಅಥವಾ ಹತ್ತಿರದವರ ಸಹಾಯ ಪಡೆಯಿರಿ. ಈ ಡೆಮೊ ಕರೆ ಮಾಡುವುದಿಲ್ಲ.",clarify:"ಕ್ಷಮಿಸಿ, ಅರ್ಥವಾಗಲಿಲ್ಲ. ನಿಧಾನವಾಗಿ ಮತ್ತೆ ಹೇಳಿ."},
+ml:{welcome:"നമസ്കാരം! ഞാൻ വാണി. എങ്ങനെ സഹായിക്കാം?",hospital:"ആശുപത്രി സഹായം വേണോ? അടുത്ത ആശുപത്രിക്കായി കുടുംബാംഗങ്ങളുടെ സഹായം തേടുക. ഈ ഡെമോ അപ്പോയിന്റ്മെന്റ് ബുക്ക് ചെയ്യില്ല.",medicine:"മരുന്നിന്റെ സമയം ഓർമ്മിക്കാൻ സഹായിക്കാം. ഈ ഡെമോ യഥാർത്ഥ റിമൈൻഡർ ക്രമീകരിക്കില്ല.",bus:"ബസ് വിവരങ്ങൾ വേണോ? ലക്ഷ്യസ്ഥാനം പറയൂ. ഈ ഡെമോ തത്സമയ സമയം കാണിക്കില്ല.",grocery:"പലചരക്ക് പട്ടിക തയ്യാറാക്കാൻ സഹായിക്കാം. ഈ ഡെമോ ഓർഡർ നൽകില്ല.",pension:"പെൻഷൻ വിവരങ്ങൾക്ക് ഔദ്യോഗിക സർക്കാർ പോർട്ടൽ അല്ലെങ്കിൽ സേവന കേന്ദ്രം ഉപയോഗിക്കുക.",emergency:"അടിയന്തരാവസ്ഥയിൽ ഇന്ത്യയിൽ 112 വിളിക്കുക അല്ലെങ്കിൽ സമീപത്തുള്ളവരുടെ സഹായം തേടുക. ഈ ഡെമോ വിളിക്കില്ല.",clarify:"ക്ഷമിക്കണം, മനസ്സിലായില്ല. പതുക്കെ വീണ്ടും പറയൂ."},
+mr:{welcome:"नमस्कार! मी वाणी आहे. मी तुमची कशी मदत करू?",hospital:"रुग्णालयाची मदत हवी आहे? जवळच्या रुग्णालयासाठी कुटुंबाची मदत घ्या. हा डेमो अपॉइंटमेंट बुक करत नाही.",medicine:"औषधाची वेळ लक्षात ठेवण्यास मदत करू शकते. हा डेमो खरा रिमाइंडर सेट करत नाही.",bus:"बसची माहिती हवी आहे? तुमचे ठिकाण सांगा. हा डेमो थेट वेळ दाखवत नाही.",grocery:"किराणा यादी बनवण्यास मदत करू शकते. हा डेमो ऑर्डर देत नाही.",pension:"पेन्शन माहितीसाठी अधिकृत सरकारी पोर्टल किंवा सेवा केंद्राशी संपर्क साधा.",emergency:"आपत्कालीन परिस्थितीत भारतात 112 वर कॉल करा किंवा जवळच्या व्यक्तीची मदत घ्या. हा डेमो कॉल करत नाही.",clarify:"माफ करा, समजले नाही. कृपया हळू पुन्हा बोला."},
+bn:{welcome:"নমস্কার! আমি বাণী। কীভাবে সাহায্য করতে পারি?",hospital:"হাসপাতালের সাহায্য দরকার? কাছের হাসপাতালের জন্য পরিবারের সাহায্য নিন। এই ডেমো অ্যাপয়েন্টমেন্ট বুক করে না।",medicine:"ওষুধের সময় মনে রাখতে সাহায্য করতে পারি। এই ডেমো আসল রিমাইন্ডার সেট করে না।",bus:"বাসের তথ্য দরকার? গন্তব্য বলুন। এই ডেমো লাইভ সময় দেখায় না।",grocery:"বাজারের তালিকা করতে সাহায্য করতে পারি। এই ডেমো অর্ডার দেয় না।",pension:"পেনশন তথ্যের জন্য সরকারি পোর্টাল বা পরিষেবা কেন্দ্রে যোগাযোগ করুন।",emergency:"জরুরি অবস্থায় ভারতে 112 নম্বরে কল করুন বা কাছের কারও সাহায্য নিন। এই ডেমো কল করে না।",clarify:"দুঃখিত, বুঝতে পারিনি। ধীরে আবার বলুন।"}
+};
+const group=()=>lang.value.split("-")[0];
+function say(text){
+ lastReply=text; if(!("speechSynthesis" in window)){status.textContent="Voice output not supported by this browser.";return}
+ speechSynthesis.cancel();
+ const u=new SpeechSynthesisUtterance(text);u.lang=lang.value;u.rate=.82;u.pitch=1;
+ u.onerror=()=>{status.textContent="Reply shown. Voice output may not be available for this language on your device."};
+ speechSynthesis.speak(u);
+}
+function respondIntent(intent){
+ const dict=replies[group()]||replies.en; const out=dict[intent]||replies.en[intent]||dict.clarify;
+ heard.textContent="Quick action: "+intent;reply.textContent=out;status.textContent="Demo response: "+intent;say(out);
+}
+function parse(text){
+ const s=text.toLowerCase();
+ if(/hospital|doctor|clinic|token|ఆసుపత్రి|హాస్పిటల్|డాక్టర్|వైద్య|மருத்துவ|अस्पताल|ಡಾಕ್ಟರ್|ആശുപത്രി/.test(s))return "hospital";
+ if(/medicine|medicin|tablet|pill| మందు|మాత్ర|ఔషధ|दवा|औषध|மருந்து|ಔಷಧ|മരുന്ന്/.test(s))return "medicine";
+ if(/bus|travel|route|బస్సు|ప్రయాణ|बस|பேருந்து|ಬಸ್|ബസ്/.test(s))return "bus";
+ if(/grocery|shop|rice|milk|కిరాణా|సరుక|దుకాణ|किराना|மளிகை|ಅಂಗಡಿ|ചരക്ക്/.test(s))return "grocery";
+ if(/pension|పెన్షన్|పింఛన్|पेंशन|ஓய்வூதியம்|ಪಿಂಚಣಿ|പെൻഷൻ/.test(s))return "pension";
+ if(/emergency|help me|sos|accident|అత్యవసర|సాయం|సహాయం|आपात|உதவி|ತುರ್ತು|അടിയന്തര/.test(s))return "emergency";
+ return "clarify";
+}
+function start(){
+ if(listening){try{recognition.stop()}catch(e){}return}
+ const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SR){status.textContent="Speech recognition is not available here. Try Chrome on Android, allow microphone permission, or use the quick buttons.";return}
+ try{
+ recognition=new SR();recognition.lang=lang.value;recognition.continuous=false;recognition.interimResults=true;recognition.maxAlternatives=1;
+ recognition.onstart=()=>{listening=true;mic.classList.add("listening");mic.innerHTML="LISTENING…<br>Tap to stop";status.textContent="Listening. Speak now—I'll wait for your words.";};
+ recognition.onresult=e=>{
+  let interim="",final="";
+  for(let i=e.resultIndex;i<e.results.length;i++){if(e.results[i].isFinal)final+=e.results[i][0].transcript;else interim+=e.results[i][0].transcript}
+  if(final.trim()){lastText=final.trim();heard.textContent=lastText;reply.textContent="Thinking…";status.textContent="I heard you. Preparing a demo response…";respondIntent(parse(lastText))}
+  else if(interim.trim()){heard.textContent=interim;status.textContent="Listening to your words…"}
+ };
+ recognition.onerror=e=>{status.textContent=e.error==="not-allowed"?"Microphone permission denied. Allow mic access in browser settings.":e.error==="no-speech"?"No speech detected. Tap mic and speak a little louder or closer.":"Voice recognition error: "+e.error+". Try again.";};
+ recognition.onend=()=>{listening=false;mic.classList.remove("listening");mic.innerHTML="TAP<br>TO SPEAK";if(!lastText && status.textContent.startsWith("Listening"))status.textContent="Listening ended. Tap again and speak; quick actions are available too.";};
+ recognition.start();
+ }catch(err){listening=false;mic.classList.remove("listening");status.textContent="Could not start microphone. Check permission and try again."}
+}
+mic.addEventListener("click",start);
+$("repeat").addEventListener("click",()=>say(lastReply||((replies[group()]||replies.en).welcome)));
+$("stop").addEventListener("click",()=>{if("speechSynthesis"in window)speechSynthesis.cancel();if(recognition&&listening){try{recognition.stop()}catch(e){}}status.textContent="Voice playback stopped."});
+document.querySelectorAll("[data-intent]").forEach(b=>b.addEventListener("click",()=>respondIntent(b.dataset.intent)));
+lang.addEventListener("change",()=>{status.textContent="Selected language: "+lang.options[lang.selectedIndex].text+". Tap mic to speak.";lastText="";});
+reply.textContent=replies.te.welcome;
 })();
 </script>
 </body>
