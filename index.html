@@ -1,126 +1,199 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#102a43">
-<title>Vaani — Your Voice, Your Freedom</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#123c9a">
+<title>Vaani — Voice Friend for Everyone</title>
 <style>
-:root{--navy:#102a43;--blue:#1768e8;--blue2:#0d4fc0;--cream:#f7f9fc;--ink:#172b3d;--muted:#62758a;--line:#e0e8f1;--green:#147a4b;--red:#d83b50}
+:root{--blue:#174bd4;--blue2:#0d368e;--bg:#f3f6ff;--ink:#172033;--card:#fff;--muted:#63708a;--green:#15834a;--red:#bd3434}
 *{box-sizing:border-box}
-body{margin:0;background:var(--cream);color:var(--ink);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
-button,select,input{font:inherit}
-.app{max-width:780px;margin:auto;padding:16px 16px 30px}
-header{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:5px 0 16px}
-.brand{font-weight:850;font-size:1.55rem;letter-spacing:-.5px;color:var(--navy)}
-.brand small{display:block;font-size:.74rem;font-weight:600;color:var(--muted);letter-spacing:0}
-.statuspill{background:#e4f5ec;color:#17613c;padding:7px 11px;border-radius:999px;font-weight:750;font-size:.8rem}
-.panel{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 8px 28px rgba(16,42,67,.05)}
-h1{font-size:clamp(1.45rem,5vw,2rem);line-height:1.2;margin:2px 0 8px}
-.intro{color:var(--muted);line-height:1.5;margin-bottom:18px}
-.language{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin:12px 0 18px}
-.language label{font-weight:750}
-select{border:1px solid #ccd8e5;border-radius:12px;padding:11px 12px;background:#fff;min-width:150px}
-.voicearea{text-align:center;padding:5px 0 12px}
-.mic{width:min(190px,54vw);height:min(190px,54vw);max-width:190px;max-height:190px;border:7px solid #dbe8ff;border-radius:50%;background:linear-gradient(145deg,#2878f2,#1152c5);color:white;font-size:3.2rem;box-shadow:0 8px 25px #1768e830;cursor:pointer;touch-action:manipulation}
-.mic.listening{background:linear-gradient(145deg,#e34c62,#bd2038);border-color:#ffe0e5;animation:pulse 1.15s infinite}
-@keyframes pulse{50%{transform:scale(1.035);box-shadow:0 0 0 12px #ffe5e9}}
-.mic:focus-visible,button:focus-visible,select:focus-visible{outline:3px solid #ffb400;outline-offset:3px}
-.miccaption{font-weight:850;font-size:1.15rem;margin-top:14px}
-.status{min-height:27px;color:var(--muted);text-align:center;margin:4px 0 12px;font-weight:600}
-.sectionlabel{font-weight:800;margin:14px 0 7px}
-.speechbox,.answer{padding:14px;border-radius:15px;min-height:58px;line-height:1.55;overflow-wrap:anywhere}
-.speechbox{background:#f4f7fb;border:1px solid #e5edf5;color:#334b62}
-.answer{background:#edf5ff;border-left:5px solid var(--blue);color:#163d69}
-.answer strong{display:block;margin-bottom:4px}
-.actiongrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:18px}
-.action{border:1px solid var(--line);background:white;border-radius:16px;padding:14px 12px;text-align:left;font-weight:800;color:var(--navy);cursor:pointer;min-height:80px}
-.action:active{transform:scale(.985);background:#f2f7ff}
-.action .emoji{font-size:1.55rem;display:block;margin-bottom:4px}
-.smallbtn{border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 12px;cursor:pointer;font-weight:700;color:var(--navy)}
-.bottomrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:13px}
-.note{background:#fff8e7;border:1px solid #f5e5b8;color:#76520b;padding:12px;border-radius:13px;font-size:.83rem;line-height:1.5;margin-top:16px}
-.footer{text-align:center;color:var(--muted);font-size:.78rem;padding:18px 4px 0}
-@media(min-width:650px){.actiongrid{grid-template-columns:repeat(4,minmax(0,1fr))}.panel{padding:26px}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"Noto Sans Telugu",Arial,sans-serif}
+main{max-width:700px;margin:0 auto;padding:18px 16px 40px}
+header{text-align:center;padding:12px 0 18px}
+.logo{width:64px;height:64px;margin:auto;border-radius:22px;background:var(--blue);color:white;display:grid;place-items:center;font-size:34px;box-shadow:0 8px 20px #174bd433}
+h1{font-size:32px;margin:8px 0 0}
+.tag{color:var(--muted);margin:4px 0 0}
+.card{background:var(--card);border-radius:22px;padding:18px;margin:14px 0;box-shadow:0 4px 18px #1720330b}
+label{display:block;font-weight:650;margin:4px 0 8px}
+select{width:100%;font:inherit;border:1px solid #d6deef;border-radius:12px;padding:12px;background:white;color:var(--ink)}
+.mic-wrap{text-align:center;padding:8px 0}
+#mic{border:0;background:var(--blue);color:#fff;width:150px;height:150px;border-radius:50%;font-size:48px;box-shadow:0 8px 0 var(--blue2),0 14px 28px #174bd433;cursor:pointer;touch-action:manipulation}
+#mic:active{transform:translateY(3px);box-shadow:0 5px 0 var(--blue2)}
+#mic.listening{background:var(--red);box-shadow:0 8px 0 #842424,0 0 0 12px #bd34341c;animation:pulse 1.3s infinite}
+@keyframes pulse{50%{transform:scale(1.04)}}
+#status{font-weight:650;margin:16px 0 6px}
+#status.good{color:var(--green)}#status.error{color:var(--red)}
+#heard,#reply{border-radius:14px;padding:14px;min-height:58px;background:#f1f5ff;line-height:1.55;white-space:pre-wrap}
+#reply{background:#edf8f1}
+.small{font-size:13px;color:var(--muted);line-height:1.5}
+.actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.action{background:#fff;border:1px solid #d6deef;border-radius:14px;padding:12px;font:inherit;font-weight:600;color:var(--ink);cursor:pointer}
+.action:active{background:#e9efff}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.secondary{border:0;border-radius:12px;background:#e8edfb;color:var(--blue2);font-weight:700;padding:12px 16px;font:inherit;cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:12px;padding-top:10px}
 </style>
 </head>
 <body>
-<div class="app">
-<header><div class="brand">🧡 VAANI <small>Voice friend for everyone</small></div><div class="statuspill">Voice-first prototype</div></header>
-<section class="panel">
-<h1>మీకు ఏం సహాయం కావాలి?</h1>
-<div class="intro">Speak naturally in your language. No typing, perfect pronunciation, or special commands needed.</div>
-<div class="language"><label for="language">Voice language</label>
-<select id="language" aria-label="Choose speech language">
-<option value="te-IN">తెలుగు</option><option value="en-IN">English (India)</option><option value="hi-IN">हिन्दी</option><option value="ta-IN">தமிழ்</option><option value="kn-IN">ಕನ್ನಡ</option><option value="ml-IN">മലയാളം</option><option value="mr-IN">मराठी</option><option value="bn-IN">বাংলা</option>
-</select></div>
-<div class="voicearea"><button id="mic" class="mic" aria-label="Tap to speak">🎙️</button><div class="miccaption">మాట్లాడండి · Tap to speak</div></div>
-<div id="status" class="status" role="status" aria-live="polite">Mic button నొక్కి మాట్లాడండి.</div>
-<div class="sectionlabel">మీరు చెప్పింది / You said</div><div id="heard" class="speechbox">మీ మాటలు ఇక్కడ కనిపిస్తాయి.</div>
-<div class="sectionlabel">Vaani says / వాణి సమాధానం</div><div id="reply" class="answer" aria-live="polite">నమస్కారం! నేను వాణి. మీకు ఏ సహాయం కావాలి? Mic నొక్కి చెప్పండి.</div>
-<div class="actiongrid">
-<button class="action" data-intent="health"><span class="emoji">🏥</span>Doctor / Hospital</button>
-<button class="action" data-intent="money"><span class="emoji">💸</span>Money transfer</button>
-<button class="action" data-intent="grocery"><span class="emoji">🛒</span>Grocery help</button>
-<button class="action" data-intent="bus"><span class="emoji">🚌</span>Bus / travel</button>
-<button class="action" data-intent="call"><span class="emoji">📞</span>Call someone</button>
-<button class="action" data-intent="reminder"><span class="emoji">⏰</span>Reminder</button>
-<button class="action" data-intent="directions"><span class="emoji">📍</span>Directions</button>
-<button class="action" data-intent="sos"><span class="emoji">🆘</span>Emergency help</button>
+<main>
+<header>
+<div class="logo" aria-hidden="true">🎙️</div>
+<h1>Vaani</h1>
+<p class="tag">Your voice friend — speak naturally</p>
+</header>
+
+<section class="card">
+<label for="language">Voice language</label>
+<select id="language">
+<option value="te-IN">తెలుగు (Telugu)</option>
+<option value="en-IN">English (India)</option>
+<option value="hi-IN">हिन्दी (Hindi)</option>
+<option value="ta-IN">தமிழ் (Tamil)</option>
+<option value="kn-IN">ಕನ್ನಡ (Kannada)</option>
+<option value="ml-IN">മലയാളം (Malayalam)</option>
+<option value="mr-IN">मराठी (Marathi)</option>
+<option value="bn-IN">বাংলা (Bengali)</option>
+<option value="en-US">English (US)</option>
+</select>
+<div class="mic-wrap">
+<button id="mic" aria-label="Start speaking">🎤</button>
+<div id="status" role="status">Tap the microphone and speak</div>
+<p class="small">Tap once, speak, then wait. Vaani will stop listening after a pause.</p>
 </div>
-<div class="bottomrow"><button id="repeat" class="smallbtn">🔊 Repeat answer</button><button id="stop" class="smallbtn">🔇 Stop voice</button></div>
-<div class="note"><b>Prototype transparency:</b> Voice input and spoken replies depend on browser/device support. This prototype demonstrates intent recognition and conversation; it does not actually transfer money, place calls, book medical appointments, order groceries, create reminders, or contact emergency services. Always verify and confirm before real-world actions. For an emergency, contact local emergency services directly.</div>
 </section>
-<div class="footer">Listen → Understand → Assist · Built for language and accessibility inclusion</div>
+
+<section class="card">
+<label>What Vaani heard</label>
+<div id="heard">Your speech text will appear here.</div>
+</section>
+<section class="card">
+<label>Vaani's response</label>
+<div id="reply">Namaste! Tap the microphone and tell me what you need.</div>
+<div class="row" style="margin-top:12px">
+<button class="secondary" id="repeat">🔊 Repeat response</button>
+<button class="secondary" id="stop">⏹ Stop voice</button>
 </div>
+</section>
+<section class="card">
+<label>Quick voice help</label>
+<div class="actions">
+<button class="action" data-intent="doctor">🏥 Doctor / Hospital</button>
+<button class="action" data-intent="emergency">🆘 Emergency</button>
+<button class="action" data-intent="shopping">🛒 Groceries</button>
+<button class="action" data-intent="travel">🚌 Travel / Bus</button>
+<button class="action" data-intent="call">📞 Call someone</button>
+<button class="action" data-intent="reminder">⏰ Reminder</button>
+</div>
+<p class="small" style="margin-top:12px">Demo assistant: these buttons provide guidance and do not place calls, book appointments, transfer money, or contact emergency services automatically.</p>
+</section>
+<footer>VAANI · Accessible voice-first demo</footer>
+</main>
 <script>
 (() => {
-const mic=document.getElementById('mic'), lang=document.getElementById('language'), status=document.getElementById('status');
-const heard=document.getElementById('heard'), replyBox=document.getElementById('reply');
-const SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-let lastReply='', recognition=null;
-const translations={
-te:{welcome:'నమస్కారం! నేను వాణి. మీకు ఏ సహాయం కావాలి?',health:'మీకు డాక్టర్ లేదా హాస్పిటల్ సహాయం కావాలని అర్థమైంది. దగ్గరలో ఆసుపత్రి వెతకాలా, లేదా అపాయింట్మెంట్ గురించి సహాయం కావాలా?',money:'డబ్బు పంపాలని అర్థమైంది. ఎవరికి పంపాలి, ఎంత పంపాలి? నిజమైన డబ్బు పంపే ముందు వివరాలు తప్పనిసరిగా నిర్ధారించాలి. ఈ prototype డబ్బు పంపదు.',grocery:'కిరాణా సరుకులు కావాలని అర్థమైంది. ఏ వస్తువులు కావాలి, ఎంత పరిమాణంలో కావాలి చెప్పండి. ఈ prototype order చేయదు.',bus:'బస్సు ప్రయాణ సమాచారం కావాలని అర్థమైంది. ఎక్కడి నుంచి ఎక్కడికి వెళ్లాలి, ఏ సమయానికి కావాలి?',call:'ఎవరికి ఫోన్ చేయాలనుకుంటున్నారు? Call చేసే ముందు contact మరియు number నిర్ధారించాలి. ఈ prototype నిజమైన call చేయదు.',reminder:'ఏ విషయాన్ని గుర్తు చేయాలి? ఏ రోజు, ఏ సమయానికి reminder కావాలో చెప్పండి. ఈ prototype reminder save చేయదు.',directions:'దారి లేదా location సహాయం కావాలని అర్థమైంది. ఎక్కడికి వెళ్లాలనుకుంటున్నారు? Live maps ఇంకా connect చేయలేదు.',sos:'మీకు అత్యవసర సహాయం కావాలా? ఇది demo మాత్రమే, emergency servicesకి call చేయదు. అత్యవసర పరిస్థితిలో స్థానిక emergency numberకు వెంటనే call చేయండి.',clarify:'మీరు చెప్పింది కొంత అర్థమైంది. ఇంకొంచెం సులభంగా లేదా వివరంగా చెప్పగలరా?'},
-en:{welcome:'Hello! I am Vaani. How can I help you?',health:'It sounds like you need a doctor or hospital. Would you like help finding a hospital or with an appointment?',money:'You want to send money. Who is the recipient and what amount? Verify everything before any real transfer. This prototype does not transfer money.',grocery:'You need groceries. Tell me which items and quantities. This prototype cannot place an order.',bus:'You need bus or travel information. Where are you travelling from and to, and when?',call:'Who would you like to call? Confirm the contact and number before calling. This prototype does not place calls.',reminder:'What should I remind you about, and on what date and time? This prototype does not save reminders.',directions:'You need directions. Where would you like to go? Live maps are not connected yet.',sos:'Do you need urgent help? This is a demo and does not contact emergency services. In an emergency, call your local emergency number now.',clarify:'I heard you, but I am not sure what you need. Could you say a little more?'},
-hi:{welcome:'नमस्ते! मैं वाणी हूँ। मैं आपकी कैसे मदद करूँ?',health:'आपको डॉक्टर या अस्पताल की मदद चाहिए। क्या अस्पताल ढूँढना है या अपॉइंटमेंट में मदद चाहिए?',money:'आप पैसे भेजना चाहते हैं। किसको और कितनी राशि? भेजने से पहले सभी विवरण पुष्टि करें। यह डेमो पैसे नहीं भेजता।',grocery:'आपको किराना चाहिए। सामान और मात्रा बताइए। यह डेमो ऑर्डर नहीं करता।',bus:'आपको बस की जानकारी चाहिए। कहाँ से कहाँ और कब जाना है?',call:'किसे फोन करना है? कॉल से पहले नंबर की पुष्टि करें। यह डेमो कॉल नहीं करता।',reminder:'किस बात की याद दिलानी है और कब? यह डेमो रिमाइंडर सेव नहीं करता।',directions:'आपको रास्ता चाहिए। कहाँ जाना है? नक्शा अभी जुड़ा नहीं है।',sos:'क्या आपको तुरंत मदद चाहिए? यह डेमो आपातकालीन सेवाओं को संपर्क नहीं करता। आपात स्थिति में स्थानीय आपातकालीन नंबर पर कॉल करें।',clarify:'मैंने सुना, लेकिन पूरी तरह समझ नहीं पाया। कृपया थोड़ा और बताएं।'}
-};
-function langGroup(){const v=lang.value;return v.startsWith('te')?'te':v.startsWith('hi')?'hi':'en'}
-function say(text){lastReply=text;replyBox.textContent=text;if(!('speechSynthesis'in window)){status.textContent='Speech output unsupported in this browser';return}speechSynthesis.cancel();const utter=new SpeechSynthesisUtterance(text);utter.lang=lang.value;utter.rate=.88;utter.pitch=1;speechSynthesis.speak(utter)}
-function words(text){return text.toLowerCase().normalize('NFKC').replace(/[^\p{L}\p{N}\s]/gu,' ').split(/\s+/).filter(Boolean)}
-function detect(text){
- const s=text.toLowerCase(), w=words(text);
- const groups={
- health:['doctor','hospital','clinic','appointment','token','medicine','medicines','sick','pain','fever','డాక్టర్','దవాఖాన','ఆస్పత్రి','హాస్పటల్','జ్వరం','మందు','బాగోలేదు','నొప్పి','వైద్య','డాక్టరు','దవాఖానా','తలనొప్పి'],
- money:['money','send','transfer','upi','payment','పంపు','డబ్బు','రూపాయి','వంద','వేలు','చెల్లించు','pay','అమ్మకి'],
- grocery:['grocery','groceries','kirana','shopping','rice','milk','vegetables','కిరాణా','బియ్యం','పాలు','కూరగాయ','సరుకులు','కొనాలి'],
- bus:['bus','travel','ticket','train','బస్సు','బస్','టికెట్','ప్రయాణం','రైలు'],
- call:['call','phone','dial','ఫోన్','కాల్','మాట్లాడు','చేయి'],
- reminder:['remind','reminder','alarm','tomorrow','later','గుర్తు','రేపు','అలారం','మర్చిపో','సమయానికి'],
- directions:['direction','route','where','location','navigate','దారి','ఎక్కడ','వెళ్ళాలి','వెళ్తా','చూపించు','location'],
- sos:['emergency','help me','urgent','sos','అత్యవసరం','సహాయం','కాపాడు','ప్రమాదం']
- };
- let best='clarify', score=0;
- for(const [intent,keys] of Object.entries(groups)){let n=0;for(const key of keys){if(s.includes(key))n+=key.length>5?2:1}if(n>score){score=n;best=intent}}
- return best;
-}
-function handleText(text){heard.textContent=text;const g=langGroup();let intent=detect(text);let out=(translations[g]||translations.en)[intent]||translations.en.clarify;say(out);status.textContent='Request understood: '+intent+' (prototype)';}
-function start(){
- if(!SR){status.textContent='Speech recognition is unavailable in this browser. Try Chrome and allow microphone permission.';return}
- recognition=new SR();recognition.lang=lang.value;recognition.interimResults=true;recognition.continuous=false;
- mic.classList.add('listening');status.textContent='Listening… speak naturally.';
- recognition.onresult=e=>{let text='';for(let i=0;i<e.results.length;i++)text+=e.results[i][0].transcript;if(text)heard.textContent=text;if(e.results[e.results.length-1].isFinal)handleText(text)};
- recognition.onerror=e=>{status.textContent='Voice error: '+e.error+'. Please try again.';mic.classList.remove('listening')};
- recognition.onend=()=>{mic.classList.remove('listening');if(status.textContent.startsWith('Listening'))status.textContent='Finished listening. Tap mic to speak again.'};
- try{recognition.start()}catch(err){mic.classList.remove('listening');status.textContent='Could not start mic. Try again.'}
-}
-mic.addEventListener('click',start);
-document.querySelectorAll('[data-intent]').forEach(b=>b.addEventListener('click',()=>{
- const intent=b.dataset.intent,g=langGroup();let out=(translations[g]||translations.en)[intent]||translations.en.clarify;
- heard.textContent='Quick action: '+b.textContent.trim();say(out);status.textContent='Quick action selected: '+intent+' (demo only)';
-}));
-document.getElementById('repeat').addEventListener('click',()=>lastReply?say(lastReply):say(translations[langGroup()].welcome));
-document.getElementById('stop').addEventListener('click',()=>{if('speechSynthesis'in window)speechSynthesis.cancel();status.textContent='Voice stopped.'});
-lang.addEventListener('change',()=>{status.textContent='Voice language selected: '+lang.options[lang.selectedIndex].text+' (speech recognition uses this language setting)'});
+ const mic=document.getElementById('mic'), statusEl=document.getElementById('status'),
+ heard=document.getElementById('heard'), replyEl=document.getElementById('reply'),
+ lang=document.getElementById('language');
+ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+ let recognition=null, listening=false, lastReply='Namaste! Tap the microphone and tell me what you need.';
+ function setStatus(text,kind=''){statusEl.textContent=text;statusEl.className=kind;}
+ function speak(text){
+   lastReply=text;
+   replyEl.textContent=text;
+   if(!('speechSynthesis' in window)){setStatus('Speech output is not supported in this browser.','error');return;}
+   speechSynthesis.cancel();
+   const u=new SpeechSynthesisUtterance(text);
+   u.lang=lang.value; u.rate=0.88; u.pitch=1;
+   u.onstart=()=>setStatus('Vaani is speaking…','good');
+   u.onend=()=>{if(!listening)setStatus('Ready. Tap mic to speak again.','good');};
+   u.onerror=()=>{if(!listening)setStatus('Response shown as text. Voice playback failed.','error');};
+   speechSynthesis.speak(u);
+ }
+ function intentReply(text){
+   const t=(text||'').toLowerCase();
+   if(/doctor|hospital|clinic|medical|జర|జ్వరం|డాక్టర్|ఆస్పత్రి|హాస్పత్రి|బాగోల|మందు|నొప్పి/.test(t))
+      return 'మీకు వైద్య సహాయం కావాలి అనిపిస్తోంది. మీ దగ్గరలోని ఆసుపత్రి లేదా క్లినిక్‌ను వెతకండి. అత్యవసర పరిస్థితి అయితే స్థానిక అత్యవసర నంబర్‌కు కాల్ చేయండి. నేను appointment నిజంగా book చేయలేదు. మీకు ఎవరికి కాల్ చేయాలో చెప్పగలరా?';
+   if(/emergency|urgent|help me|సహాయం|అత్యవసర|కాపాడ|accident/.test(t))
+      return 'ఇది అత్యవసరమైతే వెంటనే స్థానిక emergency services కు కాల్ చేయండి లేదా దగ్గరలో ఉన్న వ్యక్తి సహాయం తీసుకోండి. Vaani స్వయంగా emergency call చేయదు. మీ location, సమస్యను దగ్గరలో ఉన్నవారికి చెప్పండి.';
+   if(/grocery|groceries|kirana|కిరాణ|పాలు|కూరగాయ|shopping|సరుక/.test(t))
+      return 'కిరాణా సరుకుల జాబితా తయారు చేయడంలో సహాయం చేస్తాను. ఏ సరుకులు కావాలి, ఎంత పరిమాణం కావాలి చెప్పండి. నేను నిజంగా order చేయలేదు.';
+   if(/bus|travel|train|వెళ్ళ|బస్సు|ప్రయాణ|టికెట్/.test(t))
+      return 'ప్రయాణం గురించి సహాయం చేస్తాను. ఎక్కడి నుంచి ఎక్కడికి వెళ్లాలి, ఎప్పుడు బయలుదేరాలి చెప్పండి. ఈ demo live bus timings లేదా tickets book చేయదు.';
+   if(/call|phone|ఫోన్|కాల్/.test(t))
+      return 'ఎవరికి call చేయాలనుకుంటున్నారు? వారి పేరు లేదా number చెప్పండి. ఈ demo స్వయంగా call చేయదు; phone dialerలో number పెట్టడంలో సహాయం చేయగలను.';
+   if(/money|send|transfer|డబ్బు|పంపు|upi|payment/.test(t))
+      return 'డబ్బు పంపే ముందు recipient, amount రెండూ జాగ్రత్తగా verify చేయండి. ఈ demo నిజమైన payment చేయదు. మీ bank లేదా UPI appలో మీరు స్వయంగా confirm చేయాలి.';
+   if(/remind|reminder|గుర్తు|రేపు|later|తర్వాత/.test(t))
+      return 'Reminder పెట్టాలనుకుంటున్నారా? ఏ విషయం, ఏ సమయానికి గుర్తు చేయాలి చెప్పండి. ఈ demo ప్రస్తుతం reminder notification schedule చేయదు.';
+   if(/hello|hi|namaste|నమస్క|హాయ్/.test(t))
+      return 'నమస్కారం! మీకు ఏ సహాయం కావాలి? ఆసుపత్రి, ప్రయాణం, కిరాణా, phone call లేదా ఇతర పని గురించి మాట్లాడండి.';
+   return 'మీ మాట విన్నాను: '+text+'. ఇంకా స్పష్టంగా అర్థం చేసుకోవడానికి, మీరు ఏ పని చేయాలనుకుంటున్నారో కొంచెం వివరంగా చెప్పగలరా? నెమ్మదిగా మళ్లీ మాట్లాడండి.';
+ }
+ function start(){
+   if(!SpeechRecognition){setStatus('Speech recognition not supported here. Open this HTTPS page in Chrome and try.','error');return;}
+   if(listening){try{recognition.stop();}catch(e){}return;}
+   if('speechSynthesis' in window)speechSynthesis.cancel();
+   recognition=new SpeechRecognition();
+   recognition.lang=lang.value;
+   recognition.continuous=false;
+   recognition.interimResults=true;
+   recognition.maxAlternatives=1;
+   let finalText='';
+   listening=true;mic.classList.add('listening');mic.textContent='⏹';
+   setStatus('Listening… Speak now.','good');
+   heard.textContent='';
+   recognition.onresult=(event)=>{
+     let interim='';
+     for(let i=event.resultIndex;i<event.results.length;i++){
+       const txt=event.results[i][0].transcript;
+       if(event.results[i].isFinal)finalText+=txt;
+       else interim+=txt;
+     }
+     heard.textContent=(finalText+' '+interim).trim()||'Listening…';
+   };
+   recognition.onerror=(event)=>{
+     listening=false;mic.classList.remove('listening');mic.textContent='🎤';
+     const messages={
+       'not-allowed':'Microphone permission denied. Chrome site settings → Microphone → Allow.',
+       'service-not-allowed':'Speech service blocked. Try Chrome on HTTPS and allow microphone.',
+       'no-speech':'No speech detected. Tap mic and speak soon after.',
+       'network':'Speech recognition network error. Check internet and try again.',
+       'audio-capture':'Microphone not available. Check phone microphone and permissions.',
+       'aborted':'Listening cancelled.'
+     };
+     setStatus(messages[event.error]||('Mic error: '+event.error+'. Try again.'),'error');
+   };
+   recognition.onend=()=>{
+     listening=false;mic.classList.remove('listening');mic.textContent='🎤';
+     if(finalText.trim()){
+       heard.textContent=finalText.trim();
+       const response=intentReply(finalText.trim());
+       setStatus('Speech captured successfully.','good');
+       speak(response);
+     }else if(!statusEl.classList.contains('error')){
+       setStatus('No speech captured. Tap mic, then speak clearly.','error');
+     }
+   };
+   try{recognition.start();}
+   catch(e){listening=false;mic.classList.remove('listening');mic.textContent='🎤';setStatus('Could not start mic. Please try again.','error');}
+ }
+ mic.addEventListener('click',start);
+ document.getElementById('repeat').addEventListener('click',()=>speak(lastReply));
+ document.getElementById('stop').addEventListener('click',()=>{if('speechSynthesis' in window)speechSynthesis.cancel();setStatus('Voice stopped.','good');});
+ lang.addEventListener('change',()=>{setStatus('Language selected: '+lang.options[lang.selectedIndex].text+'. Tap mic to speak.');});
+ document.querySelectorAll('[data-intent]').forEach(btn=>btn.addEventListener('click',()=>{
+   const i=btn.dataset.intent;
+   const canned={
+     doctor:'Doctor or hospital help selected. Tell me your symptoms and preferred area. This demo does not book appointments.',
+     emergency:'Emergency help selected. If danger or a medical emergency is happening now, call local emergency services immediately or ask someone nearby for help.',
+     shopping:'Grocery help selected. Tell me the items and quantities you need. This demo does not place orders.',
+     travel:'Travel help selected. Tell me your starting point and destination. This demo does not show live transport schedules.',
+     call:'Call assistance selected. Tell me who you want to call. This demo does not place phone calls.',
+     reminder:'Reminder assistance selected. Tell me what and when you want to remember. This demo does not schedule notifications.'
+   };
+   speak(canned[i]||'How can I help?');
+ }));
+ if(!SpeechRecognition)setStatus('Your browser does not support speech recognition. Try Chrome on an HTTPS live website.','error');
 })();
 </script>
 </body>
