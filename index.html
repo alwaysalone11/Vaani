@@ -6,10 +6,9 @@
 <title>VAANI - Cheppandi, Ayipoyindi | Scalar Whisper Flow</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#F8FAFC;font-family:Arial;text-align:center;padding:16px;color:#0F172A}
+body{background:#F8FAFC;font-family:Arial;text-align:center;padding:16px;color:#0F172A;max-width:520px;margin:auto}
 .badge{background:#0F172A;color:#fff;display:inline-block;padding:6px 14px;border-radius:999px;font-size:12px;font-weight:bold;letter-spacing:1px}
-h1{font-size:58px;margin-top:10px;line-height:1}
-h1 span{color:#2563EB}
+h1{font-size:58px;margin-top:10px;line-height:1}h1 span{color:#2563EB}
 .tag{color:#64748B;font-size:18px;margin:6px 0 14px}
 .langs{display:flex;gap:8px;justify-content:center;margin-bottom:14px}
 .langs button{padding:10px 20px;border-radius:999px;border:1.5px solid #E2E8F0;background:#fff;font-size:16px;font-weight:bold;color:#334155}
@@ -33,27 +32,22 @@ h1 span{color:#2563EB}
 </style>
 </head>
 <body>
-
 <div class="badge">SCALAR • WHISPER FLOW HACKATHON</div>
 <h1>Vaani<span>.</span></h1>
 <p class="tag">Cheppandi, Ayipoyindi. • Elders Best Friend</p>
-
 <div class="langs">
 <button id="b-te" onclick="setLang('te')">Telugu</button>
 <button id="b-en" class="active" onclick="setLang('en')">English</button>
 <button id="b-hi" onclick="setLang('hi')">Hindi</button>
 </div>
-
 <div class="card">
 <div class="step" id="stepLabel">STEP 1 • MIC NOOKKANDI</div>
 <div id="heard">...</div>
 <div id="reply">Namaste! Mic nokki - "Amma ki 100 pampu" ani cheppandi.</div>
 <div id="balanceBar"><span>💰 Mee Balance</span><b>₹ <span id="balText">2,450</span></b></div>
 </div>
-
 <button id="micBtn" onclick="toggleMic()">🎤 &nbsp; Matladandi</button>
 <div id="micHint">Mic nokkithe erraga avuthundi • Malli nokkithe aagipothundi</div>
-
 <div class="quick">
 <button onclick="quick('balance')"><span>💰</span>Balance</button>
 <button onclick="quick('medicine')"><span>💊</span>Medicine</button>
@@ -62,178 +56,24 @@ h1 span{color:#2563EB}
 <button onclick="quick('bhakti')"><span>🙏</span>Bhakti</button>
 <button onclick="quick('emergency')"><span>🚨</span>Help</button>
 </div>
-
 <button class="demoBtn" onclick="runDemo()">▶️ Demo Mode - Mic Lekunda Chupinchu</button>
 <button class="reset" onclick="resetAll()">↺ Malli Modalu Pettandi</button>
 <p class="footer">VAANI • 100% Browser • No Login • No Secret Keys • Demo Only<br>alwaysalone11 • alwaysalone11.github.io/Vaani/</p>
-
 <script>
-let lang='en';
-let rec=null, listening=false, pending=null, balance=2450;
+let lang='en';let rec=null,listening=false,pending=null,balance=2450;
 let med=localStorage.getItem('vaani_med')||'Sugar Tablet';
 let emNum=localStorage.getItem('vaani_num')||'';
-
-function setLang(m){
-  lang=m;
-  document.querySelectorAll('.langs button').forEach(b=>b.classList.remove('active'));
-  document.getElementById('b-'+m).classList.add('active');
-  if(listening) stopMic();
-  let t = m=='te' ? 'Telugu select chesaru' : m=='hi' ? 'Hindi select kiya' : 'English selected';
-  speak(t); document.getElementById('reply').innerText=t;
-}
-function getLang(){
-  if(lang=='te') return 'te-IN';
-  if(lang=='hi') return 'hi-IN';
-  return 'en-IN'; // TANGLISH FIX: Elders Telugu ni English letters lo matladutharu
-}
-function speak(text){
-  speechSynthesis.cancel();
-  let u=new SpeechSynthesisUtterance(text);
-  u.lang=getLang(); u.rate=0.85; u.volume=1;
-  let vs=speechSynthesis.getVoices();
-  let v=vs.find(v=>v.lang===u.lang)||vs.find(v=>v.lang && v.lang.startsWith(u.lang.split('-')[0]));
-  if(v) u.voice=v;
-  speechSynthesis.speak(u);
-}
-function updateBal(){ document.getElementById('balText').innerText=balance.toLocaleString('en-IN'); }
-function toggleMic(){ listening ? stopMic() : startMic(); }
-
-function startMic(){
-  let SR=window.SpeechRecognition||window.webkitSpeechRecognition;
-  if(!SR){ alert('Chrome lo open cheyyandi. Chrome lo ne Mic pani chesthundi.'); return; }
-  if(rec){ try{rec.abort()}catch(e){} }
-  rec=new SR();
-  rec.lang=getLang();
-  rec.continuous=false;
-  rec.interimResults=false; // OVERLAP FIX
-  rec.maxAlternatives=1;
-  listening=true;
-  let b=document.getElementById('micBtn');
-  b.classList.add('listening');
-  b.innerHTML='🔴 &nbsp; Vintunnanu... Aapali ante nokkandi';
-  document.getElementById('stepLabel').innerText='LISTENING • CHEPPANDI...';
-  document.getElementById('micHint').innerText='Ippudu matladandi...';
-  rec.onresult=(e)=>{
-    let txt=e.results[0][0].transcript;
-    document.getElementById('heard').innerText='"'+txt+'"';
-    handle(txt.toLowerCase().trim());
-  };
-  rec.onerror=(e)=>{
-    if(e.error=='not-allowed'){
-      document.getElementById('reply').innerText='Mic permission ledu. Paine Address bar lo 🔒 nokki Mic ki Allow ivvandi.';
-      speak('Mic permission ivvandi. Allow nokkandi.');
-    } else if(e.error=='no-speech'){
-      document.getElementById('reply').innerText='Vinapadaledu. Konchem daggaraga, peddaga cheppandi.';
-      speak('Vinapadaledu. Malli cheppandi.');
-    } else if(e.error=='network'){
-      document.getElementById('reply').innerText='Internet ledu. Internet on chesi malli try cheyyandi.';
-    }
-    stopMic();
-  };
-  rec.onend=()=>{ if(listening) stopMic(); };
-  try{ rec.start(); }catch(err){ stopMic(); }
-}
-function stopMic(){
-  listening=false;
-  if(rec){ try{rec.stop()}catch(e){} }
-  let b=document.getElementById('micBtn');
-  b.classList.remove('listening');
-  b.innerHTML='🎤 &nbsp; Matladandi';
-  document.getElementById('micHint').innerText='Mic nokkithe erraga avuthundi • Malli nokkithe aagipothundi';
-}
-
-function handle(t){
-  if(pending){
-    if(t.includes('yes')||t.includes('avunu')||t.includes('han')||t.includes('send')||t.includes('pampu')||t.includes('cheyyi')||t.includes('sare')){
-      balance-=pending.amount; updateBal();
-      document.getElementById('stepLabel').innerText='STEP 3 • DONE ✓';
-      document.getElementById('reply').innerText=`Sent ${pending.amount} rupees to ${pending.person}. Done! Balance: ${balance}`;
-      speak(`${pending.amount} rupees ${pending.person} ki pampanu. Ayipoyindi.`);
-      pending=null; stopMic(); return;
-    }
-    if(t.includes('no')||t.includes('kadhu')||t.includes('vaddhu')||t.includes('cancel')||t.includes('aapu')){
-      pending=null;
-      document.getElementById('reply').innerText='Cancel chesanu.';
-      speak('Cancel chesanu.'); stopMic(); return;
-    }
-    document.getElementById('reply').innerText='Yes ante Avunu, No ante Vaddu ani cheppandi.';
-    speak('Yes ante avunu, No ante vaddu.'); stopMic(); return;
-  }
-  let num=t.match(/(\d+)/);
-  if((t.includes('pampu')||t.includes('send')||t.includes('pay')||t.includes('ivvu')) && num){
-    let amt=parseInt(num[0]);
-    let person='Amma';
-    if(t.includes('nanna')||t.includes('father')||t.includes('dad')) person='Nanna';
-    else if(t.includes('amma')||t.includes('mother')||t.includes('mom')) person='Amma';
-    else if(t.includes('anna')||t.includes('brother')) person='Anna';
-    else if(t.includes('chelli')||t.includes('sister')) person='Chelli';
-    else if(t.includes('koduku')||t.includes('son')) person='Koduku';
-    else if(t.includes('kuthuru')||t.includes('daughter')) person='Kuthuru';
-    pending={amount:amt,person};
-    document.getElementById('stepLabel').innerText='STEP 2 • CONFIRM CHEYYANDI';
-    document.getElementById('reply').innerText=`Send ${amt} rupees to ${person}? Say Yes to confirm.`;
-    speak(`${amt} rupees ${person} ki pampala? Yes ani cheppandi.`);
-    stopMic(); return;
-  }
-  if(t.includes('balance')||t.includes('dabbu')||t.includes('paisa')||t.includes('entha')){
-    document.getElementById('reply').innerText=`Mee balance: ${balance} rupees.`;
-    speak(`Mee balance ${balance} rupees.`); stopMic(); return;
-  }
-  if(t.includes('medicine')||t.includes('mandhu')||t.includes('tablet')||t.includes('dava')){
-    document.getElementById('reply').innerText=`${med} teesukune samayam ayindi. Neellu tagi veyyandi.`;
-    speak(`${med} teesukondi.`); stopMic(); return;
-  }
-  if(t.includes('time')||t.includes('samayam')||t.includes('gantala')){
-    let s=new Date().toLocaleTimeString('en-IN',{hour:'numeric',minute:'numeric'});
-    document.getElementById('reply').innerText='Ippudu Time: '+s;
-    speak('Ippudu samayam '+s); stopMic(); return;
-  }
-  if(t.includes('emergency')||t.includes('help')||t.includes('sahayam')||t.includes('bachao')||t.includes('kastam')){
-    document.getElementById('reply').innerText='Bhaya padakandi. Help vasthundi.';
-    speak('Bhaya padakandi. Help vasthundi.');
-    if(emNum) window.location.href='tel:'+emNum;
-    stopMic(); return;
-  }
-  if(t.includes('health')||t.includes('arogyam')||t.includes('bp')||t.includes('sugar')){
-    let tips=['Roju 8 glasses neellu tagandi.','Udayam konchem nadavandi.','Sugar unte sweet thagginchandi.','Night thondaraga nidra povandi.'];
-    let tip=tips[Math.floor(Math.random()*tips.length)];
-    document.getElementById('reply').innerText=tip; speak(tip); stopMic(); return;
-  }
-  if(t.includes('bhakti')||t.includes('devudu')||t.includes('paata')||t.includes('bhajan')){
-    document.getElementById('reply').innerText='Om Namah Shivaya. Meeku prasanthatha kalagali.';
-    speak('Om Namah Shivaya.');
-    window.open('https://www.youtube.com/results?search_query=telugu+bhakti+songs','_blank');
-    stopMic(); return;
-  }
-  if(t.includes('namaste')||t.includes('hello')||t.includes('hi')){
-    document.getElementById('reply').innerText='Namaste! Nenu Vaani ni. Em kavali?';
-    speak('Namaste! Nenu Vaani ni. Em kavali?'); stopMic(); return;
-  }
-  document.getElementById('reply').innerText='Ardam kaledu. "Amma ki 100 pampu" ani cheppandi.';
-  speak('Ardam kaledu. Malli cheppandi.'); stopMic();
-}
-function quick(type){
-  if(type=='balance') handle('balance entha');
-  if(type=='medicine') handle('medicine');
-  if(type=='time') handle('time');
-  if(type=='health') handle('health');
-  if(type=='bhakti') handle('bhakti');
-  if(type=='emergency') handle('emergency help');
-}
-// HACKATHON DEMO MODE - Stage lo Mic fail ayina kuda demo aagadu
-function runDemo(){
-  resetAll();
-  setTimeout(()=>{ document.getElementById('heard').innerText='"Amma ki 100 pampu"'; document.getElementById('reply').innerText='Send 100 rupees to Amma? Say Yes to confirm.'; speak('100 rupees Amma ki pampala? Yes ani cheppandi.'); document.getElementById('stepLabel').innerText='STEP 2 • CONFIRM CHEYYANDI'; },500);
-  setTimeout(()=>{ pending={amount:100,person:'Amma'}; },600);
-  setTimeout(()=>{ document.getElementById('heard').innerText='"Yes"'; balance-=100; updateBal(); document.getElementById('stepLabel').innerText='STEP 3 • DONE ✓'; document.getElementById('reply').innerText='Sent 100 rupees to Amma. Done! Balance: '+balance; speak('100 rupees Amma ki pampanu. Ayipoyindi.'); pending=null; },3500);
-}
-function resetAll(){
-  pending=null; balance=2450; updateBal();
-  document.getElementById('stepLabel').innerText='STEP 1 • MIC NOOKKANDI';
-  document.getElementById('heard').innerText='...';
-  document.getElementById('reply').innerText='Namaste! Mic nokki - "Amma ki 100 pampu" ani cheppandi.';
-  stopMic();
-}
+function setLang(m){lang=m;document.querySelectorAll('.langs button').forEach(b=>b.classList.remove('active'));document.getElementById('b-'+m).classList.add('active');if(listening)stopMic();let t=m=='te'?'Telugu select chesaru':m=='hi'?'Hindi select kiya':'English selected';speak(t);document.getElementById('reply').innerText=t;}
+function getLang(){if(lang=='te')return 'te-IN';if(lang=='hi')return 'hi-IN';return 'en-IN';}
+function speak(text){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang=getLang();u.rate=0.85;u.volume=1;let vs=speechSynthesis.getVoices();let v=vs.find(v=>v.lang===u.lang)||vs.find(v=>v.lang&&v.lang.startsWith(u.lang.split('-')[0]));if(v)u.voice=v;speechSynthesis.speak(u);}
+function updateBal(){document.getElementById('balText').innerText=balance.toLocaleString('en-IN');}
+function toggleMic(){listening?stopMic():startMic();}
+function startMic(){let SR=window.SpeechRecognition||window.webkitSpeechRecognition;if(!SR){alert('Chrome lo open cheyyandi.');return;}if(rec){try{rec.abort()}catch(e){}}rec=new SR();rec.lang=getLang();rec.continuous=false;rec.interimResults=false;rec.maxAlternatives=1;listening=true;let b=document.getElementById('micBtn');b.classList.add('listening');b.innerHTML='🔴 &nbsp; Vintunnanu... Aapali ante nokkandi';document.getElementById('stepLabel').innerText='LISTENING • CHEPPANDI...';document.getElementById('micHint').innerText='Ippudu matladandi...';rec.onresult=(e)=>{let txt=e.results[0][0].transcript;document.getElementById('heard').innerText='"'+txt+'"';handle(txt.toLowerCase().trim());};rec.onerror=(e)=>{if(e.error=='not-allowed'){document.getElementById('reply').innerText='Mic permission ledu. Address bar lo 🔒 nokki Mic ki Allow ivvandi.';speak('Mic permission ivvandi.');}else if(e.error=='no-speech'){document.getElementById('reply').innerText='Vinapadaledu. Konchem daggaraga, peddaga cheppandi.';speak('Vinapadaledu. Malli cheppandi.');}else if(e.error=='network'){document.getElementById('reply').innerText='Internet ledu.';}stopMic();};rec.onend=()=>{if(listening)stopMic();};try{rec.start();}catch(err){stopMic();}}
+function stopMic(){listening=false;if(rec){try{rec.stop()}catch(e){}}let b=document.getElementById('micBtn');b.classList.remove('listening');b.innerHTML='🎤 &nbsp; Matladandi';document.getElementById('micHint').innerText='Mic nokkithe erraga avuthundi • Malli nokkithe aagipothundi';}
+function handle(t){if(pending){if(t.includes('yes')||t.includes('avunu')||t.includes('han')||t.includes('send')||t.includes('pampu')||t.includes('cheyyi')||t.includes('sare')){balance-=pending.amount;updateBal();document.getElementById('stepLabel').innerText='STEP 3 • DONE ✓';document.getElementById('reply').innerText=`Sent ${pending.amount} rupees to ${pending.person}. Done! Balance: ${balance}`;speak(`${pending.amount} rupees ${pending.person} ki pampanu. Ayipoyindi.`);pending=null;stopMic();return;}if(t.includes('no')||t.includes('kadhu')||t.includes('vaddhu')||t.includes('cancel')){pending=null;document.getElementById('reply').innerText='Cancel chesanu.';speak('Cancel chesanu.');stopMic();return;}document.getElementById('reply').innerText='Yes ante Avunu, No ante Vaddu.';speak('Yes ante avunu, No ante vaddu.');stopMic();return;}let num=t.match(/(\d+)/);if((t.includes('pampu')||t.includes('send')||t.includes('pay')||t.includes('ivvu'))&&num){let amt=parseInt(num[0]);let person='Amma';if(t.includes('nanna')||t.includes('father'))person='Nanna';else if(t.includes('amma')||t.includes('mother'))person='Amma';else if(t.includes('anna'))person='Anna';else if(t.includes('chelli'))person='Chelli';pending={amount:amt,person};document.getElementById('stepLabel').innerText='STEP 2 • CONFIRM CHEYYANDI';document.getElementById('reply').innerText=`Send ${amt} rupees to ${person}? Say Yes to confirm.`;speak(`${amt} rupees ${person} ki pampala? Yes ani cheppandi.`);stopMic();return;}if(t.includes('balance')||t.includes('dabbu')||t.includes('paisa')||t.includes('entha')){document.getElementById('reply').innerText=`Mee balance: ${balance} rupees.`;speak(`Mee balance ${balance} rupees.`);stopMic();return;}if(t.includes('medicine')||t.includes('mandhu')||t.includes('tablet')){document.getElementById('reply').innerText=`${med} teesukune samayam ayindi.`;speak(`${med} teesukondi.`);stopMic();return;}if(t.includes('time')||t.includes('samayam')){let s=new Date().toLocaleTimeString('en-IN',{hour:'numeric',minute:'numeric'});document.getElementById('reply').innerText='Ippudu Time: '+s;speak('Ippudu samayam '+s);stopMic();return;}if(t.includes('emergency')||t.includes('help')||t.includes('sahayam')){document.getElementById('reply').innerText='Bhaya padakandi. Help vasthundi.';speak('Bhaya padakandi. Help vasthundi.');if(emNum)window.location.href='tel:'+emNum;stopMic();return;}if(t.includes('health')||t.includes('arogyam')){let tips=['Roju 8 glasses neellu tagandi.','Udayam konchem nadavandi.','Sugar unte sweet thagginchandi.','Night thondaraga nidra povandi.'];let tip=tips[Math.floor(Math.random()*tips.length)];document.getElementById('reply').innerText=tip;speak(tip);stopMic();return;}if(t.includes('bhakti')||t.includes('devudu')){document.getElementById('reply').innerText='Om Namah Shivaya.';speak('Om Namah Shivaya.');window.open('https://www.youtube.com/results?search_query=telugu+bhakti+songs','_blank');stopMic();return;}if(t.includes('namaste')||t.includes('hello')){document.getElementById('reply').innerText='Namaste! Nenu Vaani ni. Em kavali?';speak('Namaste! Nenu Vaani ni. Em kavali?');stopMic();return;}document.getElementById('reply').innerText='Ardam kaledu. "Amma ki 100 pampu" ani cheppandi.';speak('Ardam kaledu. Malli cheppandi.');stopMic();}
+function quick(type){if(type=='balance')handle('balance entha');if(type=='medicine')handle('medicine');if(type=='time')handle('time');if(type=='health')handle('health');if(type=='bhakti')handle('bhakti');if(type=='emergency')handle('emergency help');}
+function runDemo(){resetAll();setTimeout(()=>{document.getElementById('heard').innerText='"Amma ki 100 pampu"';document.getElementById('reply').innerText='Send 100 rupees to Amma? Say Yes to confirm.';speak('100 rupees Amma ki pampala? Yes ani cheppandi.');document.getElementById('stepLabel').innerText='STEP 2 • CONFIRM CHEYYANDI';},500);setTimeout(()=>{pending={amount:100,person:'Amma'};},600);setTimeout(()=>{document.getElementById('heard').innerText='"Yes"';balance-=100;updateBal();document.getElementById('stepLabel').innerText='STEP 3 • DONE ✓';document.getElementById('reply').innerText='Sent 100 rupees to Amma. Done! Balance: '+balance;speak('100 rupees Amma ki pampanu. Ayipoyindi.');pending=null;},3500);}
+function resetAll(){pending=null;balance=2450;updateBal();document.getElementById('stepLabel').innerText='STEP 1 • MIC NOOKKANDI';document.getElementById('heard').innerText='...';document.getElementById('reply').innerText='Namaste! Mic nokki - "Amma ki 100 pampu" ani cheppandi.';stopMic();}
 speechSynthesis.onvoiceschanged=()=>{};
 </script>
 </body>
